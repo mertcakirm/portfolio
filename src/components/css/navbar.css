@@ -1,0 +1,44 @@
+.nav-con{
+    position: fixed;
+    left: 0%;
+    bottom: 30px;
+}
+
+.navcard-parent{
+    background: black;
+    width: min-content;
+    border-radius: 30px;
+    column-gap: 10px;
+    padding: 10px 30px;
+    transition: .4s;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgb(255, 255, 255) 0px 0px 20px;
+}
+.navcard-parent:hover{
+    padding: 10px 50px;
+    transition: .4s;
+
+}
+.nav-card{
+    transition: .4s;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.nav-card:hover{
+    margin-left: 10px;
+    margin-right: 10px;
+    transition: .4s;
+}
+
+.theme-btn{
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
