@@ -4,6 +4,12 @@
     bottom: 30px;
 }
 
+.nav-parent{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .navcard-parent{
     background: black;
     width: min-content;
