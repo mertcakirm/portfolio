@@ -2,3 +2,67 @@
     background: #000;
     height: 100vh;
 }
+
+*{
+    color: #fff;
+
+}
+
+.titles{
+    font-size: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+.normal-text{
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: capitalize;
+    word-wrap: break-word;
+    width: 100%;
+}
+
+.personal-image{
+    border-radius: 300px;
+    box-shadow: rgb(255, 255, 255) 0px 0px 20px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+
+
+.right-animation-item{
+    animation: slideRight .6s linear;
+}
+
+.left-animation-item{
+    animation: slideLeft .6s linear;
+}
+
+
+
+
+
+@keyframes slideLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
+}
+
+
+@keyframes slideRight {
+    0% {
+        transform: translateX(100%) rotate(180deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%)  rotate(360deg) ;
+        opacity: 1;
+    }
+}
