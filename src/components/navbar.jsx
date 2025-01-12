@@ -1,5 +1,4 @@
 import './css/navbar.css'
-import '../../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import {useEffect ,useState} from "react";
 
 const NavBar = () => {
@@ -27,10 +26,10 @@ const NavBar = () => {
 
 
     return (
-        <div className="container-fluid mb-3 nav-con">
-            <div className="nav-parent justify-content-center">
+        <div className="container mb-3 w-full-100 nav-con">
+            <div className="nav-parent w-full-100 justify-center bg-amber-200">
 
-                <div className="navcard-parent justify-content-center">
+                <div className="navcard-parent justify-center">
                     <div className="nav-card">
                         <a href="/">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" fill="white" height="30"

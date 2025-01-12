@@ -8,6 +8,11 @@
 
 }
 
+.w-full-100{
+    width: 100%!important;
+
+}
+
 .titles{
     font-size: 32px;
     font-weight: bold;
