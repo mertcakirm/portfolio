@@ -1,6 +1,6 @@
 .main-page-parent-con{
     background: #000;
-    height: 100vh;
+    overflow: hidden;
 }
 
 *{
@@ -17,6 +17,7 @@
     font-size: 32px;
     font-weight: bold;
     text-transform: uppercase;
+    width: 100%;
 }
 
 
@@ -45,6 +46,102 @@
     animation: slideLeft .6s linear;
 }
 
+.edu-card{
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 10px;
+    box-shadow: rgb(255, 255, 255) 0px 0px 29px 0px;
+}
+
+
+.skills-con{
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+
+}
+
+.skill-card{
+    color:#000000;
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    transition: .4s;
+    cursor: default;
+}
+
+.skill-card:hover{
+    background: #000;
+    color: #ffffff;
+    transition: .4s;
+    box-shadow: rgb(255, 255, 255) 0px 0px 29px 0px;
+}
+
+.project-card{
+    border: 1px solid #ffffff;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.project-card-img{
+    height: 200px;
+    object-fit: cover;
+}
+
+.project-visit-btn{
+    background: #000;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+    margin-left: 5px;
+}
+
+.project-card-skills{
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+}
+
+.project-skill-card{
+    border: 1px solid #fff;
+    height: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: default;
+    transition: .4s;
+
+}
+
+.project-visit-btn:after{
+    content: '->';
+    position: absolute;
+    top: 0;
+    right: 120px;
+    color: #ffffff;
+    opacity: 0;
+    transition: .4s;
+
+}
+
+.project-visit-btn:hover:after{
+    opacity: 1;
+    right: 80px;
+    transition: .4s;
+}
+
+.project-skill-card:hover{
+    background: #fff;
+    color: #000;
+    transition: .4s;
+}
+
+.main-projects-desc{
+    font-size: 16px;
+
+}
 
 
 

@@ -1,6 +1,8 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import MainPage from "./pages/MainPage.jsx";
-import Projects from "./pages/Projects.jsx";
+import Blogs from "./pages/Blogs.jsx";
 function App() {
 
   return (
@@ -8,7 +10,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route element={<MainPage />} path="/" />
-                    <Route element={<Projects />} path="/projects" />
+                    <Route element={<Blogs />} path="/blogs" />
                 </Routes>
             </BrowserRouter>
       </div>

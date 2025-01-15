@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar.jsx";
 
-const Projects = () => {
+const Blogs = () => {
     return (
         <div className="main-page-parent-con">
             <Navbar/>
@@ -8,4 +8,4 @@ const Projects = () => {
     );
 };
 
-export default Projects;
+export default Blogs;
