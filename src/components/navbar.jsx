@@ -1,6 +1,6 @@
 import './css/navbar.css'
 import {useEffect ,useState} from "react";
-
+import {en_Icon, tr_Icon} from "./icons.jsx";
 const NavBar = ({languageprops}) => {
     const [language, setLanguage] = useState(() => {
         return localStorage.getItem("lang") || "en";
@@ -31,7 +31,7 @@ const NavBar = ({languageprops}) => {
                                     d="M12 6.453l9 8.375v9.172h-6v-6h-6v6h-6v-9.172l9-8.375zm12 5.695l-12-11.148-12 11.133 1.361 1.465 10.639-9.868 10.639 9.883 1.361-1.465z"/>
                             </svg>
                         </a>
-                        <span className="tooltip">Anasayfa</span>
+                        <span className="tooltip">{language === "tr" ? "Anasayfa" : "Homepage"}</span>
                     </div>
 
 
@@ -45,7 +45,7 @@ const NavBar = ({languageprops}) => {
                                     fillRule="nonzero"/>
                             </svg>
                         </a>
-                        <span className="tooltip">Bloglar</span>
+                        <span className="tooltip">{language === "tr" ? "Bloglar" : "Blogs"}</span>
                     </div>
 
                     <div className="nav-card">
@@ -67,7 +67,7 @@ const NavBar = ({languageprops}) => {
                                     d="M22.288 21h-20.576c-.945 0-1.712-.767-1.712-1.712v-13.576c0-.945.767-1.712 1.712-1.712h20.576c.945 0 1.712.767 1.712 1.712v13.576c0 .945-.767 1.712-1.712 1.712zm-10.288-6.086l-9.342-6.483-.02 11.569h18.684v-11.569l-9.322 6.483zm8.869-9.914h-17.789l8.92 6.229s6.252-4.406 8.869-6.229z"/>
                             </svg>
                         </a>
-                        <span className="tooltip">E-Mail</span>
+                        <span className="tooltip">{language === "tr" ? "İletişim" : "Contact"}</span>
                     </div>
 
                     <div className="nav-card lang-card">
@@ -78,8 +78,22 @@ const NavBar = ({languageprops}) => {
                                     d="M15.246 17c-.927 3.701-2.547 6-3.246 7-.699-1-2.32-3.298-3.246-7h6.492zm7.664 0c-1.558 3.391-4.65 5.933-8.386 6.733 1.315-2.068 2.242-4.362 2.777-6.733h5.609zm-21.82 0h5.609c.539 2.386 1.47 4.678 2.777 6.733-3.736-.8-6.828-3.342-8.386-6.733zm14.55-2h-7.28c-.29-1.985-.29-4.014 0-6h7.281c.288 1.986.288 4.015-.001 6zm-9.299 0h-5.962c-.248-.958-.379-1.964-.379-3s.131-2.041.379-3h5.962c-.263 1.988-.263 4.012 0 6zm17.28 0h-5.963c.265-1.988.265-4.012.001-6h5.962c.247.959.379 1.964.379 3s-.132 2.042-.379 3zm-8.375-8h-6.492c.925-3.702 2.546-6 3.246-7 1.194 1.708 2.444 3.799 3.246 7zm-8.548-.001h-5.609c1.559-3.39 4.651-5.932 8.387-6.733-1.237 1.94-2.214 4.237-2.778 6.733zm16.212 0h-5.609c-.557-2.462-1.513-4.75-2.778-6.733 3.736.801 6.829 3.343 8.387 6.733z"/>
                             </svg>
                         </button>
-                        <span className="tooltip">Dil Değiştir</span>
-                    </div>
+                        <span className="tooltip">
+                            {language === "tr" ? (
+                                <>
+                                    <span>Dili Değiştir</span>
+                                    {en_Icon()}
+                                </>
+                            ) : (
+                                <>
+                                    <span>Change Language</span>
+                                    {tr_Icon()}
+                                </>
+                            )}
+
+
+                        </span>
+                                </div>
 
                 </div>
 
