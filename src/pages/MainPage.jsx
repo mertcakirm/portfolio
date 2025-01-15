@@ -1,5 +1,4 @@
 import Navbar from "../components/navbar.jsx";
-import person from "../assets/Group 64.png"
 import './css/MainPage.css'
 import {MainGetAll, ProjectsGetAll, SkillsGetAll} from '../API/MainApi.js'
 import {useEffect, useState} from "react";
@@ -17,30 +16,22 @@ const MainPage = () => {
             setLanguage(lang);
         }
     }, [language]);
-
     const handleLanguageChange = (newLanguage) => {
         setLanguage(newLanguage);
     };
-
     const mainGet=async ()=>{
         const mainobj = await MainGetAll()
-        console.log(mainobj)
         setMainItem(mainobj)
     }
-
     const skillsGet=async ()=>{
         const skillsobj = await SkillsGetAll()
         setSkills(skillsobj)
     }
-
     const projectsGet=async ()=>{
         const projectsObj = await ProjectsGetAll()
         setProjects(projectsObj)
         console.log(projectsObj)
     }
-
-
-
     useEffect(()=>{
         mainGet()
         skillsGet()
@@ -73,58 +64,47 @@ const MainPage = () => {
                         </div>
                     ))
                 ) : (
-                    <span>No content available</span>
+                    <span>{language === "tr" ? "Gösterilecek açıklama bulunmadı" : "No information available"}</span>
                 )}
-
                 <div className="row justify-content-between row-gap-3 col-12">
                     <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM" : "EDUCATİONS"}</p>
 
                     <div className="col-lg-6 col-12  row col-12">
                         <div className="edu-card col-12">
-                            Sakarya University / 2021-2025 / Management Information Systems
+                            {language === "tr" ? "Sakarya Üniversitesi / 2021-2025 / Yönetim Bilişim Sistemleri" : "Sakarya University / 2021-2025 / Management Information Systems"}
                         </div>
                     </div>
                     <div className="col-lg-6 col-12  row col-12">
                         <div className="edu-card col-12">
-                            Tarsus Fatih Anadolu High School / 2017-2021
+                            {language === "tr" ? "Tarsus Fatih Anadolu Lisesi / 2017-2021" : "Tarsus Fatih Anadolu High School / 2017-2021"}
                         </div>
                     </div>
                 </div>
-
                 <div className="col-12 py-5 row">
                     <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM" : "SKİLLS"}</p>
-
                     <div className="skills-con">
-
                         {skills && skills.length > 0 ? (
                             skills.map((skill, index) => (
                                 <div key={index} className="skill-card">{skill.skillName}</div>
                             ))
                             ) : (
-                            <span>No content available</span>
-                            )}
+                            <span>{language === "tr" ? "Gösterilecek yetkinlik bulunmadı" : "No skill available"}</span>
+                        )}
                     </div>
                 </div>
-
-                    <div className="col-12 row py-5">
+                <div className="col-12 row py-5">
                         <p className="titles col-12">{language === "tr" ? "PROJELERİM" : "PROJECTS"}</p>
                         <div className="row col-12 row-gap-3 justify-content-between">
-
-
-
-
-
-
                             {projects && projects.length > 0 ? (
                                 projects.map((project, index) => (
                                     <div key={index} className="project-card col-lg-4 row px-0">
                                         <img className="col-12 project-card-img p-0"
-                                             src={`${project.image_base64}`|| `${person}`}/>
+                                             src={`${project.image_base64}` || `https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg`}/>
                                         <p className="normal-text col-12 m-0">{language === "tr" ? project.title_tr : project.title_en}</p>
                                         <div className="project-card-skills skills-con">
-                                            {project.Used_skills && project.Used_skills.split(',').map((skill, skillIndex) => (
+                                            {project.used_skills && project.used_skills.split(',').map((skill, skillIndex) => (
                                                 <div key={skillIndex} className="project-skill-card">
-                                                    {skill.trim()}
+                                                    {skill}
                                                 </div>
                                             ))}
                                         </div>
@@ -133,13 +113,10 @@ const MainPage = () => {
                                     </div>
                                 ))
                             ) : (
-                                <span>No content available</span>
+                                <span>{language === "tr" ? "Gösterilecek proje bulunmadı" : "No project available"}</span>
                             )}
-
-
                         </div>
                     </div>
-
             </div>
         </div>
     );

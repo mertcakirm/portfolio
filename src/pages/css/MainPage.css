@@ -108,7 +108,7 @@
 .project-skill-card{
     border: 1px solid #fff;
     height: fit-content;
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 10px;
     cursor: default;
     transition: .4s;
