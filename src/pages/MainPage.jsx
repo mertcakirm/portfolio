@@ -24,6 +24,7 @@ const MainPage = () => {
 
     const mainGet=async ()=>{
         const mainobj = await MainGetAll()
+        console.log(mainobj)
         setMainItem(mainobj)
     }
 
