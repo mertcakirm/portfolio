@@ -9,6 +9,7 @@
     padding-bottom: 20px;
     overflow: hidden;
     row-gap: 20px;
+    transition: .4s;
     align-items: center;
 }
 
@@ -34,5 +35,14 @@
     word-break: break-all;
 }
 
+@media (max-width: 800px){
+    .blog-card{
+        height: 500px;
+        transition: .4s;
+    }
 
+    .blog-card-img{
+        height: 250px;
+    }
+}
 
