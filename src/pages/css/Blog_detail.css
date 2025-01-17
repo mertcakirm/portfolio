@@ -1,0 +1,17 @@
+.blog_images{
+    width: 50%;
+    transition: .4s;
+    aspect-ratio: 3 / 2;
+}
+
+.blog_detail_con{
+    padding: 5%;
+    margin-bottom: 100px;
+}
+
+@media only screen and (max-width: 1024px) {
+    .blog_images{
+        width: 100%;
+        transition: .4s;
+    }
+}

@@ -69,35 +69,35 @@ const MainPage = () => {
                 <div className="row justify-content-between row-gap-3 col-12">
                     <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM" : "EDUCATİONS"}</p>
 
-                    <div className="col-lg-6 col-12  row col-12">
+                    <div className="col-lg-6 col-12 animation-item-right  row col-12">
                         <div className="edu-card col-12">
                             {language === "tr" ? "Sakarya Üniversitesi / 2021-2025 / Yönetim Bilişim Sistemleri" : "Sakarya University / 2021-2025 / Management Information Systems"}
                         </div>
                     </div>
-                    <div className="col-lg-6 col-12  row col-12">
+                    <div className="col-lg-6 col-12 animation-item-right  row col-12">
                         <div className="edu-card col-12">
                             {language === "tr" ? "Tarsus Fatih Anadolu Lisesi / 2017-2021" : "Tarsus Fatih Anadolu High School / 2017-2021"}
                         </div>
                     </div>
                 </div>
-                <div className="col-12 py-5 row">
+                <div className="col-12  py-5 row">
                     <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM" : "SKİLLS"}</p>
                     <div className="skills-con">
                         {skills && skills.length > 0 ? (
                             skills.map((skill, index) => (
-                                <div key={index} className="skill-card">{skill.skillName}</div>
+                                <div  key={index} className="skill-card animation-item-right">{skill.skillName}</div>
                             ))
                             ) : (
                             <span>{language === "tr" ? "Gösterilecek yetkinlik bulunmadı" : "No skill available"}</span>
                         )}
                     </div>
                 </div>
-                <div className="col-12 row py-5">
+                <div className="col-12  row py-5">
                         <p className="titles col-12">{language === "tr" ? "PROJELERİM" : "PROJECTS"}</p>
-                        <div className="row col-12 row-gap-3 justify-content-between">
+                        <div className="row  col-12 row-gap-3 justify-content-between">
                             {projects && projects.length > 0 ? (
                                 projects.map((project, index) => (
-                                    <div key={index} className="project-card col-lg-4 row px-0">
+                                    <div key={index} className="project-card animation-item-right col-lg-4 row px-0">
                                         <img className="col-12 project-card-img p-0"
                                              src={`${project.image_base64}` || `https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg`}/>
                                         <p className="normal-text col-12 m-0">{language === "tr" ? project.title_tr : project.title_en}</p>

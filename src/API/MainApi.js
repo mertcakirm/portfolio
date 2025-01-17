@@ -21,3 +21,8 @@ export const BlogsGetAll = async ()=>{
     const result= await axios.get(`${BASE_URL}/api/blogs/get/all`);
     return result.data;
 }
+
+export const GetBlogFromId=async (id)=>{
+    const result= await axios.get(`${BASE_URL}/api/blogs/get/${id}`);
+    return result.data;
+}

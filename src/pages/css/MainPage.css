@@ -19,6 +19,8 @@
     font-weight: bold;
     text-transform: uppercase;
     width: 100%;
+    text-wrap: wrap;
+    animation: fadeIn .9s ease-in-out;
 }
 
 
@@ -46,6 +48,15 @@
 .left-animation-item{
     animation: slideLeft .6s linear;
 }
+
+.animation-item-right{
+    animation: slide-in .9s alternate;
+}
+
+.animation-item-bottom{
+    animation: slide-bottom .9s alternate;
+}
+
 
 .edu-card{
     color: #fff;
@@ -144,6 +155,15 @@
 
 }
 
+@media (max-width: 800px){
+
+    .titles{
+        font-size: 28px;
+        width: 100%;
+
+    }
+}
+
 
 
 
@@ -166,6 +186,41 @@
     }
     100% {
         transform: translateX(0%)  rotate(360deg) ;
+        opacity: 1;
+    }
+}
+
+
+@keyframes slide-in {
+    from {
+        translate: 150vw 0;
+        scale: 200% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 100% 1;
+    }
+}
+
+
+@keyframes slide-bottom {
+    from {
+        translate: 0 150vw;
+        scale: 100% 1;
+    }
+
+    to {
+        translate: 0 0;
+        scale: 200% 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
         opacity: 1;
     }
 }

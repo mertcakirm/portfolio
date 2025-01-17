@@ -3,6 +3,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 import MainPage from "./pages/MainPage.jsx";
 import Blogs from "./pages/Blogs.jsx";
+import Blog_detail from "./pages/Blog_detail.jsx";
 function App() {
 
   return (
@@ -11,6 +12,7 @@ function App() {
                 <Routes>
                     <Route element={<MainPage />} path="/" />
                     <Route element={<Blogs />} path="/blogs" />
+                    <Route element={<Blog_detail />} path="/blog-detail/:id" />
                 </Routes>
             </BrowserRouter>
       </div>
