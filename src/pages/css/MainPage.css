@@ -37,6 +37,8 @@
     box-shadow: rgb(255, 255, 255) 0px 0px 20px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
+    animation: fadeIn .9s ease-in-out;
+
 }
 
 

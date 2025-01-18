@@ -56,7 +56,7 @@ const MainPage = () => {
                             <div className="col-lg-4 col-12">
                                 <img
                                     style={{ position: "sticky", top: "100px" }}
-                                    className="right-animation-item w-100 personal-image"
+                                    className="w-100 personal-image"
                                     src={`${item.main_image_base64}`}
                                     alt="personal_card"
                                 />
