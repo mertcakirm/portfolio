@@ -1,0 +1,33 @@
+.login-inp{
+    height: 50px;
+    background: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    padding-left: 15px;
+}
+
+.login-inp:focus{
+    outline: none;
+}
+
+.login-flex{
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.login-btn{
+    background: #ffffff;
+    color: #000000;
+    border: 1px solid #ffffff;
+    border-radius: 5px;
+    height: 50px;
+    transition: .4s;
+}
+
+.login-btn:hover{
+    border: 1px solid #ffffff;
+    background: #000000;
+    color: #ffffff;
+    transition: .4s;
+}
