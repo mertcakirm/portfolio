@@ -16,7 +16,9 @@ function App() {
                     <Route element={<Blogs />} path="/blogs" />
                     <Route element={<Blog_detail />} path="/blog-detail/:id" />
                     <Route element={<AdminLogin />} path="/admin-login" />
-                    <Route element={<AdminPanel />} path="/admin-panel" />
+                    <Route element={<AdminPanel />} path="/admin-panel/main" />
+                    <Route element={<AdminPanel />} path="/admin-panel/blog" />
+                    <Route element={<AdminPanel />} path="/admin-panel/general" />
                 </Routes>
             </BrowserRouter>
       </div>

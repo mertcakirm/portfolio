@@ -6,3 +6,4 @@ export const LoginRequest= async (LoginDTO)=>{
     const result= await axios.post(`${BASE_URL}/api/auth/login`,LoginDTO);
     return result.data
 }
+
