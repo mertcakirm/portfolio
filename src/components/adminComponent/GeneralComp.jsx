@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {DeleteRolereq, DeleteUserreq, GetRoles, GetUsers} from "../../API/AdminApi.js";
 import AddUserPopup from "./newUserPopup.jsx";
+import AddRolePopup from "./newRolePopup.jsx";
 
 const GeneralComp = () => {
     const [roles, setRoles] = useState([]);
@@ -9,13 +10,14 @@ const GeneralComp = () => {
 
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isPopupOpen2, setIsPopupOpen2] = useState(false);
 
     const handleOpenPopup = () => setIsPopupOpen(true);
     const handleClosePopup = () => setIsPopupOpen(false);
 
-    const handleSaveUser = (userData) => {
-        console.log("Yeni Kullanıcı:", userData);
-    };
+    const handleOpenPopup2 = () => setIsPopupOpen2(true);
+    const handleClosePopup2 = () => setIsPopupOpen2(false);
+
 
     const RoleFetch=async()=>{
         const data=await GetRoles();
@@ -53,7 +55,14 @@ const GeneralComp = () => {
             <div className="row">
 
                 <div className="col-12">
-                    <h3>Kullanıcılar</h3>
+                    <div className="row px-3 justify-content-between">
+                        <h3 className="col-6">Kullanıcılar</h3>
+                        <button className="col-2 add-btn" onClick={handleOpenPopup}>Kullanıcı Ekle</button>
+                        <AddUserPopup
+                            isOpen={isPopupOpen}
+                            onClose={handleClosePopup}
+                        />
+                    </div>
                     <table className="table mt-5 px-4 table-striped table-dark">
                         <thead>
                         <tr>
@@ -81,7 +90,14 @@ const GeneralComp = () => {
 
 
                 <div className="col-12 mt-5">
-                    <h3>Roller</h3>
+                    <div className="row px-3 justify-content-between">
+                        <h3 className="col-6">Roller</h3>
+                        <button className="col-2 add-btn" onClick={handleOpenPopup2}>Rol Ekle</button>
+                        <AddRolePopup
+                            isOpen2={isPopupOpen2}
+                            onClose2={handleClosePopup2}
+                        />
+                    </div>
                     <table className="table mt-5 table-striped table-dark">
                         <thead>
                         <tr>
@@ -105,14 +121,7 @@ const GeneralComp = () => {
                     </table>
                 </div>
 
-                <div>
-                    <h1>Kullanıcı Yönetimi</h1>
-                    <button onClick={handleOpenPopup}>Kullanıcı Ekle</button>
-                    <AddUserPopup
-                        isOpen={isPopupOpen}
-                        onClose={handleClosePopup}
-                    />
-                </div>
+
             </div>
         </div>
     );

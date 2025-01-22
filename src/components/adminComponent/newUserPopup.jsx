@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const AddUserPopup = ({ isOpen, onClose }) => {
     const [userData, setUserData] = useState({
@@ -63,10 +63,10 @@ const AddUserPopup = ({ isOpen, onClose }) => {
                         </select>
                     </div>
                     <div className="form-actions">
-                        <button type="button" onClick={onClose}>
+                        <button type="button" className="add-btn" onClick={onClose}>
                             İptal
                         </button>
-                        <button type="submit">Kaydet</button>
+                        <button type="submit" className="add-btn">Kaydet</button>
                     </div>
                 </form>
             </div>
