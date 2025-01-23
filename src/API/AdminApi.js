@@ -44,3 +44,20 @@ export const DeleteUserreq= async (id)=>{
     }
 }
 
+export const AddUserReq= async (data)=>{
+    try {
+        await axios.post(`${BASE_URL}/auth/add`,data);
+    } catch (error) {
+        console.error("Kullanıcı verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
+export const AddRoleReq= async (data)=>{
+    try {
+        await axios.post(`${BASE_URL}/roles/add`,data);
+    } catch (error) {
+        console.error("Kullanıcı verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}

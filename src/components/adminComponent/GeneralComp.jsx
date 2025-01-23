@@ -12,11 +12,24 @@ const GeneralComp = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isPopupOpen2, setIsPopupOpen2] = useState(false);
 
-    const handleOpenPopup = () => setIsPopupOpen(true);
-    const handleClosePopup = () => setIsPopupOpen(false);
+    const handleOpenPopup = () => {
+        setIsPopupOpen(true);
+        setReflesh((prevState) => !prevState);
+    }
+    const handleClosePopup = () =>{
+        setIsPopupOpen(false);
+        setReflesh((prevState) => !prevState);
+    }
 
-    const handleOpenPopup2 = () => setIsPopupOpen2(true);
-    const handleClosePopup2 = () => setIsPopupOpen2(false);
+    const handleOpenPopup2 = () => {
+        setIsPopupOpen2(true);
+        setReflesh((prevState) => !prevState);
+    }
+    const handleClosePopup2 = () => {
+        setIsPopupOpen2(false);
+        setReflesh((prevState) => !prevState);
+    }
+
 
 
     const RoleFetch=async()=>{
@@ -68,7 +81,7 @@ const GeneralComp = () => {
                         <tr>
                             <th scope="col">Kullanıcı ID</th>
                             <th scope="col">Kullanıcı Adı</th>
-                            <th scope="col">Rol Adı</th>
+                            <th scope="col">Rol ID</th>
                             <th scope="col">İşlem</th>
                         </tr>
                         </thead>

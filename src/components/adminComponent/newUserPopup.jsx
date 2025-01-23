@@ -1,10 +1,11 @@
 import { useState } from "react";
+import {AddUserReq} from "../../API/AdminApi.js";
 
 const AddUserPopup = ({ isOpen, onClose }) => {
     const [userData, setUserData] = useState({
-        name: "",
-        password: "",
-        role: "",
+        Username: "",
+        Password: "",
+        RoleId: "",
     });
 
     const handleChange = (e) => {
@@ -15,7 +16,7 @@ const AddUserPopup = ({ isOpen, onClose }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-
+        AddUserReq(userData)
         onClose();
     };
 
@@ -30,8 +31,8 @@ const AddUserPopup = ({ isOpen, onClose }) => {
                         <label>İsim:</label>
                         <input
                             type="text"
-                            name="name"
-                            value={userData.name}
+                            name="Username"
+                            value={userData.Username}
                             style={{ height: "40px",color: "black" }}
                             onChange={handleChange}
                             required
@@ -41,8 +42,8 @@ const AddUserPopup = ({ isOpen, onClose }) => {
                         <label>Şifre:</label>
                         <input
                             type="password"
-                            name="password"
-                            value={userData.password}
+                            name="Password"
+                            value={userData.Password}
                             style={{ height: "40px",color: "black" }}
                             onChange={handleChange}
                             required
@@ -51,15 +52,14 @@ const AddUserPopup = ({ isOpen, onClose }) => {
                     <div className="form-group">
                         <label>Rol:</label>
                         <select
-                            name="role"
-                            value={userData.role}
+                            name="RoleId"
+                            value={userData.RoleId}
                             onChange={handleChange}
                             style={{ height: "40px",color: "black" }}
-                            required
                         >
                             <option value="">Seçin</option>
-                            <option value="admin">Admin</option>
-                            <option value="user">User</option>
+                            <option value="1">Admin</option>
+                            <option value="2">User</option>
                         </select>
                     </div>
                     <div className="form-actions">
