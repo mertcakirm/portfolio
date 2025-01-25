@@ -6,7 +6,7 @@ import AddRolePopup from "./newRolePopup.jsx";
 const GeneralComp = () => {
     const [roles, setRoles] = useState([]);
     const [users, setUsers] = useState([]);
-    const [reflesh, setReflesh] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -14,23 +14,19 @@ const GeneralComp = () => {
 
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
-        setReflesh((prevState) => !prevState);
     }
     const handleClosePopup = () =>{
         setIsPopupOpen(false);
-        setReflesh((prevState) => !prevState);
+        setRefresh((prevState) => !prevState);
     }
 
     const handleOpenPopup2 = () => {
         setIsPopupOpen2(true);
-        setReflesh((prevState) => !prevState);
     }
     const handleClosePopup2 = () => {
         setIsPopupOpen2(false);
-        setReflesh((prevState) => !prevState);
+        setRefresh((prevState) => !prevState);
     }
-
-
 
     const RoleFetch=async()=>{
         const data=await GetRoles();
@@ -44,12 +40,12 @@ const GeneralComp = () => {
 
     const DeleteUser=async (id)=>{
         await DeleteUserreq(id);
-        setReflesh((prevState) => !prevState);
+        setRefresh((prevState) => !prevState);
     }
 
     const DeleteRole=async (id)=>{
         await DeleteRolereq(id);
-        setReflesh((prevState) => !prevState);
+        setRefresh((prevState) => !prevState);
     }
 
     useEffect(() => {
@@ -60,7 +56,7 @@ const GeneralComp = () => {
     useEffect(() => {
         UserFetch();
         RoleFetch();
-    },[reflesh])
+    },[refresh])
 
 
     return (
