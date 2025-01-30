@@ -131,6 +131,33 @@ const GeneralComp = () => {
                 </div>
 
 
+                <div className="col-12 mt-5">
+                    <div className="row px-3 justify-content-between">
+                        <h3 className="col-6">Bloglar</h3>
+                    </div>
+                    <table className="table mt-5 table-striped table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">Blog ID</th>
+                            <th scope="col">Blog Adı</th>
+                            <th scope="col">İşlem</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {roles.map((role, index) => (
+                            <tr key={index}>
+                                <th scope="row">{role.roleid}</th>
+                                <td>{role.roleName}</td>
+                                <td>
+                                    <button onClick={() => DeleteRole(role.roleid)} className="delete-btn">Sil</button>
+                                </td>
+                            </tr>
+                        ))}
+
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     );
