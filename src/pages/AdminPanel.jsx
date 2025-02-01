@@ -28,7 +28,7 @@ const AdminPanel = () => {
     return (
         <div className="main-page-parent-con row">
             {/*sidebar*/}
-            <div className="sidebar col-2">
+            <div className="sidebar col-2" style={{position:'fixed'}}>
                 <a className="sidebar-links" href="/admin-panel/general">Genel</a>
                 <a className="sidebar-links" href="/admin-panel/main">Anasayfa</a>
                 <a className="sidebar-links" href="/admin-panel/blog">Blog</a>

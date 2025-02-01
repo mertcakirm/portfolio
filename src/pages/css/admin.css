@@ -6,6 +6,12 @@
     align-items: center;
     justify-content: center;
     row-gap: 20px;
+    height: 100%;
+    width: 20%;
+}
+.content-container{
+    width: 80%;
+    margin-left: 20%;
 }
 
 .sidebar-links{
@@ -115,7 +121,7 @@
 
 .form-control {
     background: #2a2a2a;
-    color: white;
+    color: white!important;
     border: 1px solid #444;
 }
 
@@ -129,4 +135,8 @@
     height: auto;
     margin-top: 10px;
     border-radius: 5px;
+}
+
+.add-blog-con{
+    display: none;
 }

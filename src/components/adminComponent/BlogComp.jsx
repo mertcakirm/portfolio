@@ -1,14 +1,14 @@
-import React,{useState} from 'react';
+import {useEffect, useState} from 'react';
 
 const BlogComp = () => {
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
-    const [contents, setContents] = useState([]);
+    const [contents, setContents] = useState([{ id: Date.now(), title_en: "",title_tr:"",content_en:"", content_tr: "", image_base64: "" }]);
 
     const addContent = () => {
         setContents([
             ...contents,
-            { id: Date.now(), title: "", description: "", image: "" },
+            { id: Date.now(), title_en: "",title_tr:"",content_en:"", content_tr: "", image_base64: "" },
         ]);
     };
 
@@ -44,25 +44,53 @@ const BlogComp = () => {
             setFile(event.dataTransfer.files[0]);
         }
     };
+
+    const showBlogInp = () => {
+        const blogCon = document.querySelector(".add-blog-con");
+        const blogBtn = document.querySelector(".add-blog-btn");
+
+        if (blogCon && blogBtn) {
+            blogCon.style.display = "flex";
+            blogBtn.style.display = "none";
+        }
+    };
+
+    useEffect(() => {
+        const blogBtn = document.querySelector(".add-blog-btn");
+
+        if (blogBtn) {
+            blogBtn.addEventListener("click", showBlogInp);
+        }
+
+        return () => {
+            if (blogBtn) {
+                blogBtn.removeEventListener("click", showBlogInp);
+            }
+        };
+    }, []);
+
+
     return (
         <div className="container-fluid py-5">
             <div className="row">
 
-                {/*<div style={{height:'100vh'}} className="col-12 row justify-content-center align-items-center">*/}
-                {/*    <button className="col-12 row-gap-3 row bg-transparent border-0">*/}
-                {/*        <svg xmlns="http://www.w3.org/2000/svg" className="col-12" width="50" fill="white" height="50"*/}
-                {/*             viewBox="0 0 24 24">*/}
-                {/*            <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>*/}
-                {/*        </svg>*/}
-                {/*        <h2 className="col-12 text-center">Blog Ekle</h2>*/}
-                {/*    </button>*/}
-                {/*</div>*/}
+                <div style={{height:'100vh'}} className="col-12 row add-blog-btn justify-content-center align-items-center">
+                    <button className="col-12 row-gap-3 row bg-transparent border-0" onClick={showBlogInp}>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="col-12" width="50" fill="white" height="50"
+                             viewBox="0 0 24 24">
+                            <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
+                        </svg>
+                        <h2 className="col-12 text-center">Blog Ekle</h2>
+                    </button>
+                </div>
 
 
-                <div className="col-12 row justify-content-center">
-                    <div style={{height:'fit-content'}} className="row col-4 row-gap-3 justify-content-center">
+                <div className="col-12 add-blog-con row justify-content-center">
+                    <div style={{height: 'fit-content'}} className="row col-4 row-gap-3 justify-content-center">
                         <h5 className="col-12 text-center">Genel Blog Yönetimi</h5>
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Title"/>
                         <input type="text" className="col-12 login-inp" placeholder="Blog Başlığı"/>
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Content"/>
                         <input type="text" className="col-12 login-inp" placeholder="Blog Açıklaması"/>
                         <div
                             className={`file-upload ${dragActive ? "drag-active" : ""}`}
@@ -75,9 +103,10 @@ const BlogComp = () => {
                                 {file ? file.name : "Görselinizi buraya sürükleyin veya tıklayarak seçin"}
                             </label>
                         </div>
+                        <button className="col-12 login-btn">Kaydet</button>
                     </div>
 
-                    <div className="col-8" style={{height:'100vh',overflow:'hidden',overflowY:'visible'}}>
+                    <div className="col-8" style={{height: '100vh', overflow: 'hidden', overflowY: 'visible'}}>
                         <button className="btn btn-light login-btn m-3" onClick={addContent}>
                             + İçerik Ekle
                         </button>
@@ -85,19 +114,36 @@ const BlogComp = () => {
                             <div key={content.id} className="content-box">
                                 <input
                                     type="text"
-                                    className="form-control"
-                                    placeholder="Başlık"
-                                    value={content.title}
+                                    className=" login-inp w-100 mb-2"
+                                    placeholder="Title"
+                                    value={content.title_en}
                                     onChange={(e) =>
-                                        updateContent(content.id, "title", e.target.value)
+                                        updateContent(content.id, "title_en", e.target.value)
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    className=" login-inp w-100"
+                                    placeholder="Başlık"
+                                    value={content.title_tr}
+                                    onChange={(e) =>
+                                        updateContent(content.id, "title_tr", e.target.value)
                                     }
                                 />
                                 <textarea
-                                    className="form-control mt-2"
-                                    placeholder="Açıklama"
-                                    value={content.description}
+                                    className="login-inp pt-2 w-100 mt-2"
+                                    placeholder="Content"
+                                    value={content.content_en}
                                     onChange={(e) =>
-                                        updateContent(content.id, "description", e.target.value)
+                                        updateContent(content.id, "content_en", e.target.value)
+                                    }
+                                />
+                                <textarea
+                                    className=" login-inp pt-2 w-100 mt-2"
+                                    placeholder="Açıklama"
+                                    value={content.content_tr}
+                                    onChange={(e) =>
+                                        updateContent(content.id, "content_tr", e.target.value)
                                     }
                                 />
                                 <input
