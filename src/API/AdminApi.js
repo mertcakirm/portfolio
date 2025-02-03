@@ -57,7 +57,17 @@ export const AddRoleReq= async (data)=>{
     try {
         await axios.post(`${BASE_URL}/roles/add`,data);
     } catch (error) {
-        console.error("Kullanıcı verilerini alırken hata oluştu:", error);
+        console.error("Rol verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
+
+export const AddSkillReq= async (data)=>{
+    try {
+        await axios.post(`${BASE_URL}/skills/add`,data);
+    }catch (error){
+        console.error("Yetkinlik verilerini alırken hata oluştu:", error);
         throw error;
     }
 }

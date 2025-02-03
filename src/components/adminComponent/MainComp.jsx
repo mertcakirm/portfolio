@@ -1,6 +1,29 @@
-import React from 'react';
+import {useState} from 'react';
+import {AddSkillReq} from "../../API/AdminApi.js";
 
 const MainComp = () => {
+    const [skillNameState, setSkillNameState] = useState("");
+
+
+    const AddSkill = async () => {
+        if (!skillNameState.trim()) {
+            console.log("Yetkinlik adı boş olamaz!");
+            return;
+        }
+        const data = {
+            SkillName: skillNameState,
+            proficiency: "100",
+        };
+        try {
+            await AddSkillReq(data);
+            setSkillNameState("");
+        } catch (error) {
+            console.error("Yetkinlik eklenirken hata oluştu:", error);
+        }
+    };
+
+
+
     return (
         <div className="container-fluid py-5">
             <div className="row row-gap-5">
@@ -55,12 +78,17 @@ const MainComp = () => {
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
-                        <input type="text" className="col-5 login-inp"/>
-                        <button className="col-2 login-btn">Yetkinlik Ekle</button>
+                        <input
+                            value={skillNameState}
+                            onChange={(e) => setSkillNameState(e.target.value)}
+                            type="text"
+                            className="col-5 login-inp"
+                        />
+                        <button onClick={AddSkill} className="col-2 login-btn">Yetkinlik Ekle</button>
 
                         <div className="col-12">
                             <table className="table mt-5 px-4 table-striped table-dark">
-                                <thead>
+                            <thead>
                                 <tr>
                                     <th scope="col">Yetkinlik ID</th>
                                     <th scope="col">Yetkinlik Adı</th>
@@ -83,7 +111,7 @@ const MainComp = () => {
                 </div>
 
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
-                    <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
+                <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-6">Projeleri Yönet</h3>
                         <button className="col-3 login-btn">Proje Ekle</button>
 
