@@ -71,3 +71,34 @@ export const AddSkillReq= async (data)=>{
         throw error;
     }
 }
+
+
+
+
+export const AddProjectReq= async (data)=>{
+    try {
+        await axios.post(`${BASE_URL}/projects/add`,data);
+    }catch (error){
+        console.error("Yetkinlik verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
+
+export const DeleteProjectReq= async (id)=>{
+    try {
+        await axios.delete(`${BASE_URL}/projects/delete/${id}`);
+    }catch (error){
+        console.error("Yetkinlik verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
+export const DeleteSkillReq= async (id)=>{
+    try {
+        await axios.delete(`${BASE_URL}/skills/delete/${id}`);
+    }catch (error){
+        console.error("Yetkinlik verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
