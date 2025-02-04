@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {AddSkillReq, DeleteProjectReq, DeleteSkillReq} from "../../API/AdminApi.js";
 import NewProjectPopup from "./newProjectPopup.jsx";
-import {ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
+import {EducationsGetAll, ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
 
 const MainComp = () => {
     const [skillNameState, setSkillNameState] = useState("");
@@ -9,6 +9,7 @@ const MainComp = () => {
     const [refresh, setRefresh] = useState(false);
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [educations, setEducations] = useState([]);
 
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
@@ -26,6 +27,11 @@ const MainComp = () => {
     const skillsGet=async ()=>{
         const skillsobj = await SkillsGetAll()
         setSkills(skillsobj)
+    }
+
+    const eduGet=async ()=>{
+        const eduobj = await EducationsGetAll();
+        setEducations(eduobj);
     }
 
     const AddSkill = async () => {
@@ -47,11 +53,12 @@ const MainComp = () => {
         }
     };
 
-    const DeleteProject = async (id) => {
+    const DeleteProject=async (id)=>{
         await DeleteProjectReq(id);
         setRefresh((prevState) => !prevState);
-
+        console.log(id)
     }
+
 
     const DeleteSkill = async (id) => {
         await DeleteSkillReq(id);
@@ -60,13 +67,15 @@ const MainComp = () => {
     }
 
     useEffect(()=>{
-        skillsGet()
-        projectsGet()
+        skillsGet();
+        projectsGet();
+        eduGet();
     },[])
 
     useEffect(()=>{
-        skillsGet()
-        projectsGet()
+        skillsGet();
+        projectsGet();
+        eduGet();
     },[refresh])
 
     return (
@@ -84,10 +93,12 @@ const MainComp = () => {
                 <div className="col-6">
                     <div className="row px-3 row-gap-3 justify-content-center">
                         <h3 className="col-12 text-center">Tanıtım Metni</h3>
-                        <input type="text" className="col-7 login-inp"/>
+                        <input type="text" placeholder="Türkçe" className="col-7 login-inp"/>
+                        <input type="text" placeholder="İngilizce" className="col-7 login-inp"/>
                         <button className="col-6 login-btn">Metni Güncelle</button>
                     </div>
                 </div>
+
 
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
@@ -105,13 +116,16 @@ const MainComp = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <th scope="row">id</th>
-                                    <td>12</td>
-                                    <td>
-                                        <button className="delete-btn">Sil</button>
-                                    </td>
-                                </tr>
+                                {educations.map((item, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">{item.id}</th>
+                                        <td>{item.educationText}</td>
+                                        <td>
+                                            <button className="delete-btn">Sil</button>
+                                        </td>
+                                    </tr>
+                                ))}
+
 
                                 </tbody>
                             </table>
@@ -122,7 +136,7 @@ const MainComp = () => {
 
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
-                        <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
+                    <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
                         <input
                             value={skillNameState}
                             onChange={(e) => setSkillNameState(e.target.value)}
@@ -178,16 +192,15 @@ const MainComp = () => {
                                         <th scope="row">{project.id}</th>
                                         <td>{project.title_tr}</td>
                                         <td>
-                                            <button className="delete-btn" onClick={DeleteProject(project.id)}>Sil</button>
+                                            <button className="delete-btn" onClick={()=>DeleteProject(project.id)}>Sil</button>
                                         </td>
                                     </tr>
                                 ))}
                                 </tbody>
                             </table>
                         </div>
+                    </div>
                 </div>
-                </div>
-
                 <NewProjectPopup
                     isOpen={isPopupOpen}
                     onClose={handleClosePopup}
