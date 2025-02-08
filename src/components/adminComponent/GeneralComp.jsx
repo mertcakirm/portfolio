@@ -1,13 +1,14 @@
 import {useEffect, useState} from "react";
-import {DeleteRolereq, DeleteUserreq, GetRoles, GetUsers} from "../../API/AdminApi.js";
+import {DeleteBlogReq, DeleteRolereq, DeleteUserreq, GetRoles, GetUsers} from "../../API/AdminApi.js";
 import AddUserPopup from "./newUserPopup.jsx";
 import AddRolePopup from "./newRolePopup.jsx";
+import {BlogsGetAll} from "../../API/MainApi.js";
 
 const GeneralComp = () => {
     const [roles, setRoles] = useState([]);
     const [users, setUsers] = useState([]);
     const [refresh, setRefresh] = useState(false);
-
+    const [blogs, setBlogs] = useState([]);
 
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [isPopupOpen2, setIsPopupOpen2] = useState(false);
@@ -48,14 +49,28 @@ const GeneralComp = () => {
         setRefresh((prevState) => !prevState);
     }
 
+    const DeleteBlog=async (id)=>{
+        await DeleteBlogReq(id);
+        setRefresh((prevState) => !prevState);
+
+    }
+
+    const BlogsGet = async()=>{
+        const data = await BlogsGetAll()
+        setBlogs(data);
+        console.log(data)
+    }
+
     useEffect(() => {
         UserFetch();
         RoleFetch();
+        BlogsGet();
     },[])
 
     useEffect(() => {
         UserFetch();
         RoleFetch();
+        BlogsGet();
     },[refresh])
 
 
@@ -144,12 +159,12 @@ const GeneralComp = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {roles.map((role, index) => (
+                        {blogs.map((blog, index) => (
                             <tr key={index}>
-                                <th scope="row">{role.roleid}</th>
-                                <td>{role.roleName}</td>
+                                <th scope="row">{blog.blogid}</th>
+                                <td>{blog.bloG_Name_tr}</td>
                                 <td>
-                                    <button onClick={() => DeleteRole(role.roleid)} className="delete-btn">Sil</button>
+                                    <button onClick={() => DeleteBlog(blog.blogid)} className="delete-btn">Sil</button>
                                 </td>
                             </tr>
                         ))}

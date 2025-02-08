@@ -1,30 +1,29 @@
-import {useEffect, useState} from 'react';
+import { useState } from 'react';
+import {AddBlogReq} from "../../API/AdminApi.js";
+
+const generateRandomBlogId = () => {
+    return Math.floor(100000000 + Math.random() * 900000000).toString();
+};
 
 const BlogComp = () => {
+    const [blogId, setBlogId] = useState(generateRandomBlogId()); // 9 haneli blog ID
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
-    const [contents, setContents] = useState([{ id: Date.now(), title_en: "",title_tr:"",content_en:"", content_tr: "", image_base64: "" }]);
+    const [contents, setContents] = useState([
+        { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image: "" }
+    ]);
+    const [blogs, setBlogs] = useState({ BlogName: "", Blog_image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
 
     const addContent = () => {
-        setContents([
-            ...contents,
-            { id: Date.now(), title_en: "",title_tr:"",content_en:"", content_tr: "", image_base64: "" },
-        ]);
+        setContents([...contents, { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image: "" }]);
     };
 
     const updateContent = (id, field, value) => {
-        setContents(
-            contents.map((content) =>
-                content.id === id ? { ...content, [field]: value } : content
-            )
-        );
+        setContents(contents.map((content) => (content.id === id ? { ...content, [field]: value } : content)));
     };
 
     const removeContent = (id) => {
         setContents(contents.filter((content) => content.id !== id));
-    };
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
     };
 
     const handleDragOver = (event) => {
@@ -39,141 +38,97 @@ const BlogComp = () => {
     const handleDrop = (event) => {
         event.preventDefault();
         setDragActive(false);
-
         if (event.dataTransfer.files.length > 0) {
-            setFile(event.dataTransfer.files[0]);
+            handleFileChange({ target: { files: event.dataTransfer.files } });
         }
     };
 
     const showBlogInp = () => {
         const blogCon = document.querySelector(".add-blog-con");
         const blogBtn = document.querySelector(".add-blog-btn");
-
         if (blogCon && blogBtn) {
             blogCon.style.display = "flex";
             blogBtn.style.display = "none";
         }
     };
 
-    useEffect(() => {
-        const blogBtn = document.querySelector(".add-blog-btn");
 
-        if (blogBtn) {
-            blogBtn.addEventListener("click", showBlogInp);
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                setBlogs({ ...blogs, Blog_image_base64: reader.result });
+                setFile(file);
+            };
         }
+    };
 
-        return () => {
-            if (blogBtn) {
-                blogBtn.removeEventListener("click", showBlogInp);
-            }
+    const HandleSubmit = async () => {
+        const submitObj = {
+            blogId: blogId,
+            BlogName: blogs.BlogName,
+            Blog_image_base64: blogs.Blog_image_base64,
+            Blog_description: blogs.Blog_description,
+            BLOG_Name_tr: blogs.BLOG_Name_tr,
+            Blog_desc_tr: blogs.BLOG_desc_tr,
+            Contents: contents,
         };
-    }, []);
 
+        await AddBlogReq(submitObj);
+
+        console.log(submitObj);
+    };
 
     return (
         <div className="container-fluid py-5">
             <div className="row">
-
-                <div style={{height:'100vh'}} className="col-12 row add-blog-btn justify-content-center align-items-center">
+                <div style={{ height: '100vh' }} className="col-12 row add-blog-btn justify-content-center align-items-center">
                     <button className="col-12 row-gap-3 row bg-transparent border-0" onClick={showBlogInp}>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="col-12" width="50" fill="white" height="50"
-                             viewBox="0 0 24 24">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="col-12" width="50" fill="white" height="50" viewBox="0 0 24 24">
                             <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
                         </svg>
                         <h2 className="col-12 text-center">Blog Ekle</h2>
                     </button>
                 </div>
-
-
-                <div className="col-12 add-blog-con row justify-content-center">
-                    <div style={{height: 'fit-content'}} className="row col-4 row-gap-3 justify-content-center">
+                <div className="col-12 add-blog-con row justify-content-center" style={{ display: "none" }}>
+                    <div style={{ height: 'fit-content' }} className="row col-4 row-gap-3 justify-content-center">
                         <h5 className="col-12 text-center">Genel Blog Yönetimi</h5>
-                        <input type="text" className="col-12 login-inp" placeholder="Blog Title"/>
-                        <input type="text" className="col-12 login-inp" placeholder="Blog Başlığı"/>
-                        <input type="text" className="col-12 login-inp" placeholder="Blog Content"/>
-                        <input type="text" className="col-12 login-inp" placeholder="Blog Açıklaması"/>
-                        <div
-                            className={`file-upload ${dragActive ? "drag-active" : ""}`}
-                            onDragOver={handleDragOver}
-                            onDragLeave={handleDragLeave}
-                            onDrop={handleDrop}
-                        >
-                            <input type="file" id="fileInput" className="file-input" onChange={handleFileChange}/>
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Title" value={blogs.BlogName} onChange={(e) => setBlogs({ ...blogs, BlogName: e.target.value })} />
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Başlığı" value={blogs.BLOG_Name_tr} onChange={(e) => setBlogs({ ...blogs, BLOG_Name_tr: e.target.value })} />
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Content" value={blogs.Blog_description} onChange={(e) => setBlogs({ ...blogs, Blog_description: e.target.value })} />
+                        <input type="text" className="col-12 login-inp" placeholder="Blog Açıklaması" value={blogs.BLOG_desc_tr} onChange={(e) => setBlogs({ ...blogs, BLOG_desc_tr: e.target.value })} />
+                        <div className={`file-upload ${dragActive ? "drag-active" : ""}`} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+                            <input type="file" id="fileInput" className="file-input" onChange={handleFileChange} />
                             <label htmlFor="fileInput" className="file-label">
                                 {file ? file.name : "Görselinizi buraya sürükleyin veya tıklayarak seçin"}
                             </label>
                         </div>
-                        <button className="col-12 login-btn">Kaydet</button>
+                        <button className="col-12 login-btn" onClick={HandleSubmit}>Kaydet</button>
                     </div>
-
-                    <div className="col-8" style={{height: '100vh', overflow: 'hidden', overflowY: 'visible'}}>
-                        <button className="btn btn-light login-btn m-3" onClick={addContent}>
-                            + İçerik Ekle
-                        </button>
+                    <div className="col-8" style={{ height: '100vh', overflowY: 'auto' }}>
+                        <button className="btn btn-light login-btn m-3" onClick={addContent}>+ İçerik Ekle</button>
                         {contents.map((content) => (
                             <div key={content.id} className="content-box">
-                                <input
-                                    type="text"
-                                    className=" login-inp w-100 mb-2"
-                                    placeholder="Title"
-                                    value={content.title_en}
-                                    onChange={(e) =>
-                                        updateContent(content.id, "title_en", e.target.value)
+                                <input type="text" className="login-inp w-100 mb-2" placeholder="Title" value={content.title_en} onChange={(e) => updateContent(content.id, "title_en", e.target.value)} />
+                                <input type="text" className="login-inp w-100" placeholder="Başlık" value={content.title_tr} onChange={(e) => updateContent(content.id, "title_tr", e.target.value)} />
+                                <textarea className="login-inp pt-2 w-100 mt-2" placeholder="Content" value={content.content_en} onChange={(e) => updateContent(content.id, "content_en", e.target.value)} />
+                                <textarea className="login-inp pt-2 w-100 mt-2" placeholder="Açıklama" value={content.content_tr} onChange={(e) => updateContent(content.id, "content_tr", e.target.value)} />
+                                <input type="file" className="form-control mt-2" onChange={(e) => {
+                                    const file = e.target.files[0];
+                                    if (file) {
+                                        const reader = new FileReader();
+                                        reader.readAsDataURL(file);
+                                        reader.onload = () => updateContent(content.id, "image", reader.result);
                                     }
-                                />
-                                <input
-                                    type="text"
-                                    className=" login-inp w-100"
-                                    placeholder="Başlık"
-                                    value={content.title_tr}
-                                    onChange={(e) =>
-                                        updateContent(content.id, "title_tr", e.target.value)
-                                    }
-                                />
-                                <textarea
-                                    className="login-inp pt-2 w-100 mt-2"
-                                    placeholder="Content"
-                                    value={content.content_en}
-                                    onChange={(e) =>
-                                        updateContent(content.id, "content_en", e.target.value)
-                                    }
-                                />
-                                <textarea
-                                    className=" login-inp pt-2 w-100 mt-2"
-                                    placeholder="Açıklama"
-                                    value={content.content_tr}
-                                    onChange={(e) =>
-                                        updateContent(content.id, "content_tr", e.target.value)
-                                    }
-                                />
-                                <input
-                                    type="file"
-                                    className="form-control mt-2"
-                                    onChange={(e) => {
-                                        const file = e.target.files[0];
-                                        if (file) {
-                                            const reader = new FileReader();
-                                            reader.readAsDataURL(file);
-                                            reader.onload = () =>
-                                                updateContent(content.id, "image", reader.result);
-                                        }
-                                    }}
-                                />
-                                {content.image && (
-                                    <img src={content.image} alt="Yüklenen" className="preview-img"/>
-                                )}
-                                <button
-                                    className="btn btn-danger mt-2"
-                                    onClick={() => removeContent(content.id)}
-                                >
-                                    Sil
-                                </button>
+                                }} />
+                                {content.image && <img src={content.image} alt="Yüklenen" className="preview-img" />}
+                                <button className="btn btn-danger mt-2" onClick={() => removeContent(content.id)}>Sil</button>
                             </div>
                         ))}
                     </div>
-
                 </div>
-
             </div>
         </div>
     );

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {AddSkillReq, DeleteProjectReq, DeleteSkillReq} from "../../API/AdminApi.js";
+import {AddSkillReq, DeleteProjectReq, DeleteSkillReq, UpdateImageReq} from "../../API/AdminApi.js";
 import NewProjectPopup from "./newProjectPopup.jsx";
 import {EducationsGetAll, ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
 
@@ -10,7 +10,19 @@ const MainComp = () => {
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
     const [educations, setEducations] = useState([]);
+    const [mainData, setMainData] = useState({header_tr:"",description_tr:"",header_en:"",description_en:""});
+    const [imageBase64, setImageBase64] = useState("");
 
+    const handleImageChange = (event) => {
+        const file = event.target.files[0]; // Seçilen dosyayı al
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setImageBase64(reader.result); // Base64 formatında state'e kaydet
+            };
+        }
+    };
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
     }
@@ -53,6 +65,15 @@ const MainComp = () => {
         }
     };
 
+    const changeImage=async ()=>{
+        await UpdateImageReq(
+            {
+                main_image_base64:imageBase64
+            }
+        )
+        setImageBase64(null)
+    }
+
     const DeleteProject=async (id)=>{
         await DeleteProjectReq(id);
         setRefresh((prevState) => !prevState);
@@ -85,8 +106,14 @@ const MainComp = () => {
                 <div className="col-6">
                     <div className="row px-3 row-gap-3 justify-content-center">
                         <h3 className="col-12 text-center">Kişi Resmi</h3>
-                        <input type="file" className="col-7"/>
-                        <button className="col-6 login-btn">Resmi Güncelle</button>
+                        <input type="file" className="col-7" onChange={handleImageChange}/>
+                        {imageBase64 && (
+                            <div className="col-12 text-center mt-3">
+                                <img src={imageBase64} alt="Seçilen Resim"
+                                     style={{width: "100px", height: "100px", objectFit: "cover"}}/>
+                            </div>
+                        )}
+                        <button className="col-6 login-btn" onClick={changeImage}>Resmi Güncelle</button>
                     </div>
                 </div>
 
@@ -125,8 +152,6 @@ const MainComp = () => {
                                         </td>
                                     </tr>
                                 ))}
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -136,7 +161,7 @@ const MainComp = () => {
 
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
-                    <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
+                        <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
                         <input
                             value={skillNameState}
                             onChange={(e) => setSkillNameState(e.target.value)}
@@ -147,7 +172,7 @@ const MainComp = () => {
 
                         <div className="col-12">
                             <table className="table mt-5 px-4 table-striped table-dark">
-                            <thead>
+                                <thead>
                                 <tr>
                                     <th scope="col">Yetkinlik ID</th>
                                     <th scope="col">Yetkinlik Adı</th>
@@ -160,12 +185,11 @@ const MainComp = () => {
                                         <th scope="row">{skill.id}</th>
                                         <td>{skill.skillName}</td>
                                         <td>
-                                            <button onClick={()=>DeleteSkill(skill.id)} className="delete-btn">Sil</button>
+                                            <button onClick={() => DeleteSkill(skill.id)} className="delete-btn">Sil
+                                            </button>
                                         </td>
                                     </tr>
-
                                 ))}
-
                                 </tbody>
                             </table>
                         </div>
@@ -174,7 +198,7 @@ const MainComp = () => {
 
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
-                    <h3 className="col-6">Projeleri Yönet</h3>
+                        <h3 className="col-6">Projeleri Yönet</h3>
                         <button className="col-3 login-btn" onClick={handleOpenPopup}>Proje Ekle</button>
 
                         <div className="col-12">
@@ -192,7 +216,9 @@ const MainComp = () => {
                                         <th scope="row">{project.id}</th>
                                         <td>{project.title_tr}</td>
                                         <td>
-                                            <button className="delete-btn" onClick={()=>DeleteProject(project.id)}>Sil</button>
+                                            <button className="delete-btn"
+                                                    onClick={() => DeleteProject(project.id)}>Sil
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}

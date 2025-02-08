@@ -120,4 +120,29 @@ export const DeleteEducationReq= async (id)=>{
     }
 }
 
+export const AddBlogReq= async (data)=>{
+    try {
+        await axios.post(`${BASE_URL}/blogs/add`,data);
+    }catch (error){
+        console.error("Yetkinlik verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
 
+export const DeleteBlogReq=async (id)=>{
+    try {
+        await axios.delete(`${BASE_URL}/blogs/delete/${id}`);
+    }catch (error){
+        console.error("Blog verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
+export const UpdateImageReq=async (data)=>{
+    try {
+        await axios.put(`${BASE_URL}/mainpage/update/image`,data);
+    }catch (error){
+        console.error("Blog verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
