@@ -10,16 +10,16 @@ const MainComp = () => {
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
     const [educations, setEducations] = useState([]);
-    const [mainData, setMainData] = useState({Id:"1",header_tr:"",description_tr:"",header_en:"",description_en:""});
+    const [mainData, setMainData] = useState({Id:1,header_tr:"",description_tr:"",header_en:"",description_en:""});
     const [imageBase64, setImageBase64] = useState("");
 
     const handleImageChange = (event) => {
-        const file = event.target.files[0]; // Seçilen dosyayı al
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
-                setImageBase64(reader.result); // Base64 formatında state'e kaydet
+                setImageBase64(reader.result);
             };
         }
     };

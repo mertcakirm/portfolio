@@ -10,12 +10,12 @@ const BlogComp = () => {
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const [contents, setContents] = useState([
-        { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image: "" }
+        { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }
     ]);
-    const [blogs, setBlogs] = useState({ BlogName: "", Blog_image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
+    const [blogs, setBlogs] = useState({ BlogName: "", image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
 
     const addContent = () => {
-        setContents([...contents, { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image: "" }]);
+        setContents([...contents, { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }]);
     };
 
     const updateContent = (id, field, value) => {
