@@ -146,3 +146,13 @@ export const UpdateImageReq=async (data)=>{
         throw error;
     }
 }
+
+
+export const UpdateContentsReq=async (data)=>{
+    try {
+        await axios.put(`${BASE_URL}/mainpage/update/contents`,data);
+    }catch (error){
+        console.error("Blog verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}

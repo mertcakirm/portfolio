@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {AddSkillReq, DeleteProjectReq, DeleteSkillReq, UpdateImageReq} from "../../API/AdminApi.js";
+import {AddSkillReq, DeleteProjectReq, DeleteSkillReq, UpdateContentsReq, UpdateImageReq} from "../../API/AdminApi.js";
 import NewProjectPopup from "./newProjectPopup.jsx";
 import {EducationsGetAll, ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
 
@@ -10,7 +10,7 @@ const MainComp = () => {
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
     const [educations, setEducations] = useState([]);
-    const [mainData, setMainData] = useState({header_tr:"",description_tr:"",header_en:"",description_en:""});
+    const [mainData, setMainData] = useState({Id:"1",header_tr:"",description_tr:"",header_en:"",description_en:""});
     const [imageBase64, setImageBase64] = useState("");
 
     const handleImageChange = (event) => {
@@ -23,6 +23,23 @@ const MainComp = () => {
             };
         }
     };
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setMainData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const updateMainData = async () => {
+        try {
+            console.log("Güncellenecek Veri:", mainData);
+            await UpdateContentsReq(mainData);
+        } catch (error) {
+            console.error("Metin güncellenirken hata oluştu:", error);
+        }
+    };
+
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
     }
@@ -120,9 +137,39 @@ const MainComp = () => {
                 <div className="col-6">
                     <div className="row px-3 row-gap-3 justify-content-center">
                         <h3 className="col-12 text-center">Tanıtım Metni</h3>
-                        <input type="text" placeholder="Türkçe" className="col-7 login-inp"/>
-                        <input type="text" placeholder="İngilizce" className="col-7 login-inp"/>
-                        <button className="col-6 login-btn">Metni Güncelle</button>
+                        <input
+                            type="text"
+                            name="header_tr"
+                            value={mainData.header_tr}
+                            onChange={handleInputChange}
+                            placeholder="Türkçe Başlık"
+                            className="col-7 login-inp"
+                        />
+                        <input
+                            type="text"
+                            name="header_en"
+                            value={mainData.header_en}
+                            onChange={handleInputChange}
+                            placeholder="İngilizce Başlık"
+                            className="col-7 login-inp"
+                        />
+                        <input
+                            type="text"
+                            name="description_tr"
+                            value={mainData.description_tr}
+                            onChange={handleInputChange}
+                            placeholder="Türkçe Açıklama"
+                            className="col-7 login-inp"
+                        />
+                        <input
+                            type="text"
+                            name="description_en"
+                            value={mainData.description_en}
+                            onChange={handleInputChange}
+                            placeholder="İngilizce Açıklama"
+                            className="col-7 login-inp"
+                        />
+                        <button className="col-6 login-btn" onClick={updateMainData}>Metni Güncelle</button>
                     </div>
                 </div>
 
