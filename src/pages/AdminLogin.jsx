@@ -14,8 +14,7 @@ const AdminLogin = () => {
         };
         try {
             const response = await LoginRequest(loginDTO);
-            console.log(response);
-            window.location.href="/admin-panel"
+
         } catch (error) {
             console.error("Giriş yapılamadı:", error);
             alert("Giriş Yapılamadı")

@@ -21,7 +21,6 @@ const BlogComp = () => {
     const updateContent = (id, field, value) => {
         setContents(contents.map((content) => (content.id === id ? { ...content, [field]: value } : content)));
     };
-
     const removeContent = (id) => {
         setContents(contents.filter((content) => content.id !== id));
     };
