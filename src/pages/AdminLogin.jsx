@@ -13,8 +13,8 @@ const AdminLogin = () => {
             "Password": password
         };
         try {
-            const response = await LoginRequest(loginDTO);
-
+            await LoginRequest(loginDTO);
+            window.location.href="/admin-panel/main"
         } catch (error) {
             console.error("Giriş yapılamadı:", error);
             alert("Giriş Yapılamadı")

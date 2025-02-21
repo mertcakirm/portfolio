@@ -1,28 +1,31 @@
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 import MainPage from "./pages/MainPage.jsx";
 import Blogs from "./pages/Blogs.jsx";
 import Blog_detail from "./pages/Blog_detail.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import AdminPanel from "./pages/AdminPanel.jsx";
-function App() {
+import {getCookie} from "./API/Cookie.js";
 
-  return (
-      <div style={{background:'#000',height:'100%'}}>
+function App() {
+    const token = getCookie("token");
+
+    return (
+        <div style={{ background: '#000', height: '100%' }}>
             <BrowserRouter>
                 <Routes>
                     <Route element={<MainPage />} path="/" />
                     <Route element={<Blogs />} path="/blogs" />
                     <Route element={<Blog_detail />} path="/blog-detail/:id" />
-                    <Route element={<AdminLogin />} path="/admin-login" />
-                    <Route element={<AdminPanel />} path="/admin-panel/main" />
-                    <Route element={<AdminPanel />} path="/admin-panel/blog" />
-                    <Route element={<AdminPanel />} path="/admin-panel/general" />
+                    <Route element={token ? <Navigate to="/admin-panel/blog" replace /> : <AdminLogin /> } path="/admin-login" />
+                    <Route path="/admin-panel/main" element={token ? <AdminPanel /> : <Navigate to="/admin-login" replace />} />
+                    <Route path="/admin-panel/blog" element={token ? <AdminPanel /> : <Navigate to="/admin-login" replace />} />
+                    <Route path="/admin-panel/general" element={token ? <AdminPanel /> : <Navigate to="/admin-login" replace />} />
                 </Routes>
             </BrowserRouter>
-      </div>
-  )
+        </div>
+    );
 }
 
-export default App
+export default App;
