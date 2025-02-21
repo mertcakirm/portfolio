@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import {
+    AddEducationReq,
     AddSkillReq,
     DeleteEduReq,
     DeleteProjectReq,
@@ -19,6 +20,7 @@ const MainComp = () => {
     const [educations, setEducations] = useState([]);
     const [mainData, setMainData] = useState({Id:1,header_tr:"",description_tr:"",header_en:"",description_en:""});
     const [imageBase64, setImageBase64] = useState("");
+    const [newEducation, setNewEducation] = useState({EducationText:"",Egitim:""});
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -33,6 +35,15 @@ const MainComp = () => {
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setMainData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+
+    const handleEduChange = (e) => {
+        const { name, value } = e.target;
+        setNewEducation((prevData) => ({
             ...prevData,
             [name]: value,
         }));
@@ -116,6 +127,21 @@ const MainComp = () => {
 
     }
 
+    const AddEducation = async () => {
+        const data = {
+            EducationText: newEducation.EducationText,
+            egitim: newEducation.Egitim,
+        };
+        try {
+            await AddEducationReq(data);
+            setNewEducation("");
+            setRefresh((prevState) => !prevState);
+
+        } catch (error) {
+            console.error("Yetkinlik eklenirken hata oluştu:", error);
+        }
+    }
+
     useEffect(()=>{
         skillsGet();
         projectsGet();
@@ -189,14 +215,16 @@ const MainComp = () => {
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-3 text-center">Eğitimleri Yönet</h3>
-                        <input type="text" className="col-5 login-inp"/>
-                        <button className="col-2 login-btn">Eğitim Ekle</button>
+                        <input type="text" name="EducationText" value={newEducation.EducationText} onChange={handleEduChange} placeholder="Education" className="col-2 login-inp"/>
+                        <input type="text" name="Egitim" value={newEducation.Egitim} onChange={handleEduChange} placeholder="Eğitim" className="col-2 login-inp"/>
+                        <button className="col-2 login-btn" onClick={AddEducation}>Eğitim Ekle</button>
 
                         <div className="col-12">
                             <table className="table mt-5 px-4 table-striped table-dark">
                                 <thead>
                                 <tr>
                                     <th scope="col">Eğitim ID</th>
+                                    <th scope="col">Education Text</th>
                                     <th scope="col">Eğitim Metni</th>
                                     <th scope="col">İşlem</th>
                                 </tr>
@@ -206,8 +234,10 @@ const MainComp = () => {
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
                                         <td>{item.educationText}</td>
+                                        <td>{item.egitim}</td>
                                         <td>
-                                            <button onClick={()=>DeleteEdu(item.id)} className="delete-btn">Sil</button>
+                                            <button onClick={() => DeleteEdu(item.id)} className="delete-btn">Sil
+                                            </button>
                                         </td>
                                     </tr>
                                 ))}
@@ -226,6 +256,7 @@ const MainComp = () => {
                             onChange={(e) => setSkillNameState(e.target.value)}
                             type="text"
                             className="col-5 login-inp"
+                            placeholder="Yetkinlik Adı"
                         />
                         <button onClick={AddSkill} className="col-2 login-btn">Yetkinlik Ekle</button>
 
