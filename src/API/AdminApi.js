@@ -171,3 +171,12 @@ export const UpdateContentsReq = async (data) => {
         throw error;
     }
 };
+
+export const DeleteEduReq = async (id) => {
+    try {
+        await api.delete(`/education/delete/${id}`);
+    } catch (error) {
+        console.error("Blog silinirken hata oluştu:", error);
+        throw error;
+    }
+};

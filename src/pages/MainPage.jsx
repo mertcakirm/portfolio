@@ -1,6 +1,6 @@
 import Navbar from "../components/navbar.jsx";
 import './css/MainPage.css'
-import {MainGetAll, ProjectsGetAll, SkillsGetAll} from '../API/MainApi.js'
+import {EducationsGetAll, MainGetAll, ProjectsGetAll, SkillsGetAll} from '../API/MainApi.js'
 import {useEffect, useState} from "react";
 const MainPage = () => {
     const [language, setLanguage] = useState(() => {
@@ -9,7 +9,7 @@ const MainPage = () => {
     const [mainItem, setMainItem] = useState(null);
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
-
+    const [educations, setEducations] = useState([]);
     useEffect(() => {
         const lang = localStorage.getItem("lang");
         if (lang && lang !== language) {
@@ -32,10 +32,16 @@ const MainPage = () => {
         const projectsObj = await ProjectsGetAll()
         setProjects(projectsObj)
     }
+    const EduGet=async ()=>{
+        const Eduobj = await EducationsGetAll()
+        setEducations(Eduobj)
+        console.log(Eduobj)
+    }
     useEffect(()=>{
-        mainGet()
-        skillsGet()
-        projectsGet()
+        mainGet();
+        skillsGet();
+        projectsGet();
+        EduGet();
     },[])
 
     return (
@@ -55,7 +61,7 @@ const MainPage = () => {
                             </div>
                             <div className="col-lg-4 col-12">
                                 <img
-                                    style={{ position: "sticky", top: "100px" }}
+                                    style={{position: "sticky", top: "100px"}}
                                     className="w-100 personal-image"
                                     src={`${item.main_image_base64}`}
                                     alt="personal_card"
@@ -66,57 +72,57 @@ const MainPage = () => {
                 ) : (
                     <span>{language === "tr" ? "Gösterilecek açıklama bulunmadı" : "No information available"}</span>
                 )}
+
                 <div className="row justify-content-between row-gap-3 col-12">
                     <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM" : "EDUCATİONS"}</p>
 
-                    <div className="col-lg-6 col-12 animation-item-right  row col-12">
-                        <div className="edu-card col-12">
-                            {language === "tr" ? "Sakarya Üniversitesi / 2021-2025 / Yönetim Bilişim Sistemleri" : "Sakarya University / 2021-2025 / Management Information Systems"}
+                    {educations.map((item, index) => (
+                        <div key={index} className="col-lg-6 col-12 animation-item-right  row col-12">
+                            <div className="edu-card col-12">
+                                {language === "tr" ? item.egitim : item.educationText }
+                            </div>
                         </div>
-                    </div>
-                    <div className="col-lg-6 col-12 animation-item-right  row col-12">
-                        <div className="edu-card col-12">
-                            {language === "tr" ? "Tarsus Fatih Anadolu Lisesi / 2017-2021" : "Tarsus Fatih Anadolu High School / 2017-2021"}
-                        </div>
-                    </div>
+                    ))}
                 </div>
+
                 <div className="col-12  py-5 row">
                     <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM" : "SKİLLS"}</p>
                     <div className="skills-con">
                         {skills && skills.length > 0 ? (
                             skills.map((skill, index) => (
-                                <div  key={index} className="skill-card animation-item-right">{skill.skillName}</div>
+                                <div key={index} className="skill-card animation-item-right">{skill.skillName}</div>
                             ))
-                            ) : (
+                        ) : (
                             <span>{language === "tr" ? "Gösterilecek yetkinlik bulunmadı" : "No skill available"}</span>
                         )}
                     </div>
                 </div>
                 <div className="col-12  row py-5">
-                        <p className="titles col-12">{language === "tr" ? "PROJELERİM" : "PROJECTS"}</p>
-                        <div className="row  col-12 row-gap-3 justify-content-between">
-                            {projects && projects.length > 0 ? (
-                                projects.map((project, index) => (
-                                    <div key={index} className="project-card animation-item-right col-lg-4 row px-0">
-                                        <img className="col-12 project-card-img p-0"
-                                             src={`${project.image_base64}` || `https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg`}/>
-                                        <p className="normal-text col-12 m-0">{language === "tr" ? project.title_tr : project.title_en}</p>
-                                        <div className="project-card-skills skills-con">
-                                            {project.used_skills && project.used_skills.split(',').map((skill, skillIndex) => (
-                                                <div key={skillIndex} className="project-skill-card">
-                                                    {skill}
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <p className="main-projects-desc">{language === "tr" ? project.description_tr : project.description_en}</p>
-                                        <a href={`${project.href}` ||  "#"} className="project-visit-btn w-50">{language === "tr" ? "ZİYARET ET" : "VISIT NOW"}</a>
+                    <p className="titles col-12">{language === "tr" ? "PROJELERİM" : "PROJECTS"}</p>
+                    <div className="row  col-12 row-gap-3 justify-content-between">
+                        {projects && projects.length > 0 ? (
+                            projects.map((project, index) => (
+                                <div key={index} className="project-card animation-item-right col-lg-4 row px-0">
+                                    <img className="col-12 project-card-img p-0"
+                                         src={`${project.image_base64}` || `https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg`}/>
+                                    <p className="normal-text col-12 m-0">{language === "tr" ? project.title_tr : project.title_en}</p>
+                                    <div className="project-card-skills skills-con">
+                                        {project.used_skills && project.used_skills.split(',').map((skill, skillIndex) => (
+                                            <div key={skillIndex} className="project-skill-card">
+                                                {skill}
+                                            </div>
+                                        ))}
                                     </div>
-                                ))
-                            ) : (
-                                <span>{language === "tr" ? "Gösterilecek proje bulunmadı" : "No project available"}</span>
-                            )}
-                        </div>
+                                    <p className="main-projects-desc">{language === "tr" ? project.description_tr : project.description_en}</p>
+                                    <a href={`${project.href}` || "#"}
+                                       className="project-visit-btn w-50">{language === "tr" ? "ZİYARET ET" : "VISIT NOW"}</a>
+                                </div>
+                            ))
+                        ) : (
+                            <span>{language === "tr" ? "Gösterilecek proje bulunmadı" : "No project available"}</span>
+                        )}
                     </div>
+                </div>
             </div>
         </div>
     );

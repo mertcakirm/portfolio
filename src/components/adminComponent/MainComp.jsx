@@ -1,5 +1,12 @@
 import {useEffect, useState} from 'react';
-import {AddSkillReq, DeleteProjectReq, DeleteSkillReq, UpdateContentsReq, UpdateImageReq} from "../../API/AdminApi.js";
+import {
+    AddSkillReq,
+    DeleteEduReq,
+    DeleteProjectReq,
+    DeleteSkillReq,
+    UpdateContentsReq,
+    UpdateImageReq
+} from "../../API/AdminApi.js";
 import NewProjectPopup from "./newProjectPopup.jsx";
 import {EducationsGetAll, ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
 
@@ -103,6 +110,11 @@ const MainComp = () => {
         setRefresh((prevState) => !prevState);
 
     }
+    const DeleteEdu = async (id) => {
+        await DeleteEduReq(id);
+        setRefresh((prevState) => !prevState);
+
+    }
 
     useEffect(()=>{
         skillsGet();
@@ -195,7 +207,7 @@ const MainComp = () => {
                                         <th scope="row">{item.id}</th>
                                         <td>{item.educationText}</td>
                                         <td>
-                                            <button className="delete-btn">Sil</button>
+                                            <button onClick={()=>DeleteEdu(item.id)} className="delete-btn">Sil</button>
                                         </td>
                                     </tr>
                                 ))}
