@@ -5,7 +5,7 @@ const AddUserPopup = ({ isOpen, onClose }) => {
     const [userData, setUserData] = useState({
         Username: "",
         Password: "",
-        RoleId: "",
+        RoleId: "2",
     });
 
     const handleChange = (e) => {
