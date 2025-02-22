@@ -3,6 +3,7 @@ import {DeleteBlogReq, DeleteRolereq, DeleteUserreq, GetRoles, GetUsers} from ".
 import AddUserPopup from "./newUserPopup.jsx";
 import AddRolePopup from "./newRolePopup.jsx";
 import {BlogsGetAll} from "../../API/MainApi.js";
+import {getCookie} from "../../API/Cookie.js";
 
 const GeneralComp = () => {
     const [roles, setRoles] = useState([]);
@@ -65,6 +66,18 @@ const GeneralComp = () => {
         UserFetch();
         RoleFetch();
         BlogsGet();
+        const decodeJWT = (token) => {
+            const payload = token.split(".")[1];
+            return JSON.parse(atob(payload));
+        };
+
+        const token = getCookie("token");
+        if (token) {
+            const decoded = decodeJWT(token);
+            if (decoded.sub==="admin"){
+                console.log("test")
+            }
+        }
     },[])
 
     useEffect(() => {
@@ -72,6 +85,10 @@ const GeneralComp = () => {
         RoleFetch();
         BlogsGet();
     },[refresh])
+
+
+
+
 
 
     return (

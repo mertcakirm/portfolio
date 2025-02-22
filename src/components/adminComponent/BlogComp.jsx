@@ -10,12 +10,20 @@ const BlogComp = () => {
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const [contents, setContents] = useState([
-        { id: generateRandomBlogId(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }
+        { id: generateRandomBlogId(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image_base64: "" }
     ]);
     const [blogs, setBlogs] = useState({ BlogName: "", image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
 
     const addContent = () => {
-        setContents([...contents, { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }]);
+        setContents([...contents, {
+            id: generateRandomBlogId(),
+            blogId,
+            title_en: "",
+            title_tr: "",
+            content_en: "",
+            content_tr: "",
+            Blog_image_base64: ""
+        }]);
     };
 
     const updateContent = (id, field, value) => {
@@ -66,18 +74,40 @@ const BlogComp = () => {
     };
 
     const HandleSubmit = async () => {
+        if (!blogId) {
+            console.error("blogId değeri tanımlı değil!");
+            return;
+        }
+
+        if (!blogs || !contents) {
+            console.error("blogs veya contents undefined!");
+            return;
+        }
+
+        const updatedContents = contents.map(content => ({
+            ...content,
+            image_base64: content.image_base64 || ""
+        }));
+
         const submitObj = {
-            blogId: blogId,
+            Blogid: blogId,
             BlogName: blogs.BlogName,
             Blog_image_base64: blogs.Blog_image_base64,
             Blog_description: blogs.Blog_description,
             BLOG_Name_tr: blogs.BLOG_Name_tr,
-            Blog_desc_tr: blogs.BLOG_desc_tr,
-            Contents: contents,
+            BLOG_desc_tr: blogs.BLOG_desc_tr,
+            blog_Contents: updatedContents,
         };
-        await AddBlogReq(submitObj);
-        console.log(submitObj);
+
+        try {
+            const response = await AddBlogReq(submitObj);
+            console.log("API Yanıtı:", response);
+        } catch (error) {
+            console.error("API isteği başarısız:", error);
+        }
     };
+
+
 
     return (
         <div className="container-fluid py-5">
@@ -118,7 +148,7 @@ const BlogComp = () => {
                                     if (file) {
                                         const reader = new FileReader();
                                         reader.readAsDataURL(file);
-                                        reader.onload = () => updateContent(content.id, "image", reader.result);
+                                        reader.onload = () => updateContent(content.id, "image_base64", reader.result);
                                     }
                                 }} />
                                 {content.image && <img src={content.image} alt="Yüklenen" className="preview-img" />}
