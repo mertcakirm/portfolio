@@ -155,6 +155,7 @@ const GeneralComp = () => {
                         <tr>
                             <th scope="col">Blog ID</th>
                             <th scope="col">Blog Adı</th>
+                            <th scope="col">Blog Name</th>
                             <th scope="col">İşlem</th>
                         </tr>
                         </thead>
@@ -163,6 +164,7 @@ const GeneralComp = () => {
                             <tr key={index}>
                                 <th scope="row">{blog.blogid}</th>
                                 <td>{blog.bloG_Name_tr}</td>
+                                <td>{blog.blogName}</td>
                                 <td>
                                     <button onClick={() => DeleteBlog(blog.blogid)} className="delete-btn">Sil</button>
                                 </td>

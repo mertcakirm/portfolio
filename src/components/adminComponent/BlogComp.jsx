@@ -6,11 +6,11 @@ const generateRandomBlogId = () => {
 };
 
 const BlogComp = () => {
-    const [blogId, setBlogId] = useState(generateRandomBlogId()); // 9 haneli blog ID
+    const [blogId, setBlogId] = useState(generateRandomBlogId());
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const [contents, setContents] = useState([
-        { id: crypto.randomUUID(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }
+        { id: generateRandomBlogId(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", Blog_image_base64: "" }
     ]);
     const [blogs, setBlogs] = useState({ BlogName: "", image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
 
@@ -21,6 +21,7 @@ const BlogComp = () => {
     const updateContent = (id, field, value) => {
         setContents(contents.map((content) => (content.id === id ? { ...content, [field]: value } : content)));
     };
+
     const removeContent = (id) => {
         setContents(contents.filter((content) => content.id !== id));
     };
@@ -74,9 +75,7 @@ const BlogComp = () => {
             Blog_desc_tr: blogs.BLOG_desc_tr,
             Contents: contents,
         };
-
         await AddBlogReq(submitObj);
-
         console.log(submitObj);
     };
 
