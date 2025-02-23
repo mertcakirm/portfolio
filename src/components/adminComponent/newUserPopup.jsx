@@ -1,12 +1,13 @@
-import { useState } from "react";
-import {AddUserReq} from "../../API/AdminApi.js";
+import {useEffect, useState} from "react";
+import {AddUserReq, GetRoles} from "../../API/AdminApi.js";
 
-const AddUserPopup = ({ isOpen, onClose }) => {
+const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
     const [userData, setUserData] = useState({
         Username: "",
         Password: "",
-        RoleId: "2",
+        RoleId: "",
     });
+    const [roles, setRoles] = useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -15,10 +16,18 @@ const AddUserPopup = ({ isOpen, onClose }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         AddUserReq(userData)
+        reflesh(true)
         onClose();
     };
+
+    const GetRolesForDropDown = async () => {
+        const data = await GetRoles();
+        setRoles(data);
+    }
+    useEffect(()=>{
+        GetRolesForDropDown();
+    },[])
 
     if (!isOpen) return null;
 
@@ -57,9 +66,10 @@ const AddUserPopup = ({ isOpen, onClose }) => {
                             onChange={handleChange}
                             style={{ height: "40px",color: "black" }}
                         >
-                            <option value="">Seçin</option>
-                            <option value="1">Admin</option>
-                            <option value="2">User</option>
+                            <option value="">Role Seçin</option>
+                            {roles.map((role,index) => (
+                                <option key={index} value={role.roleid}>{role.roleName}</option>
+                            ))}
                         </select>
                     </div>
                     <div className="form-actions">

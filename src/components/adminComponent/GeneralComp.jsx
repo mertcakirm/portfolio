@@ -59,7 +59,6 @@ const GeneralComp = () => {
     const BlogsGet = async()=>{
         const data = await BlogsGetAll()
         setBlogs(data);
-        console.log(data)
     }
 
     useEffect(() => {
@@ -100,6 +99,11 @@ const GeneralComp = () => {
                         <AddUserPopup
                             isOpen={isPopupOpen}
                             onClose={handleClosePopup}
+                            reflesh={(b)=>{
+                                if(b===true){
+                                    setRefresh(prev => !prev);
+                                }
+                            }}
                         />
                     </div>
                     <table className="table mt-5 px-4 table-striped table-dark">

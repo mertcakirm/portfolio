@@ -82,15 +82,6 @@ export const DeleteSkillReq = async (id) => {
     }
 };
 
-export const DeleteEducationReq = async (id) => {
-    try {
-        await api.delete(`/education/delete/${id}`);
-    } catch (error) {
-        console.error("Eğitim bilgisi silinirken hata oluştu:", error);
-        throw error;
-    }
-};
-
 export const DeleteBlogReq = async (id) => {
     try {
         await api.delete(`/blogs/delete/${id}`);
