@@ -74,8 +74,7 @@ const MainPage = () => {
                 )}
 
                 <div className="row justify-content-between row-gap-3 col-12">
-                    <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM" : "EDUCATİONS"}</p>
-
+                    <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM 📒" : "EDUCATİONS 📒"}</p>
                     {educations.map((item, index) => (
                         <div key={index} className="col-lg-6 col-12 animation-item-right  row col-12">
                             <div className="edu-card col-12">
@@ -86,7 +85,7 @@ const MainPage = () => {
                 </div>
 
                 <div className="col-12  py-5 row">
-                    <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM" : "SKİLLS"}</p>
+                    <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM👨🏻‍💻" : "SKILLS👨🏻‍💻"}</p>
                     <div className="skills-con">
                         {skills && skills.length > 0 ? (
                             skills.map((skill, index) => (
@@ -98,7 +97,7 @@ const MainPage = () => {
                     </div>
                 </div>
                 <div className="col-12  row py-5">
-                    <p className="titles col-12">{language === "tr" ? "PROJELERİM" : "PROJECTS"}</p>
+                    <p className="titles col-12">{language === "tr" ? "PROJELERİM 🖥️" : "PROJECTS 🖥️"}</p>
                     <div className="row  col-12 row-gap-3 justify-content-between">
                         {projects && projects.length > 0 ? (
                             projects.map((project, index) => (

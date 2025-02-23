@@ -61,17 +61,16 @@ const NavBar = ({languageprops}) => {
 
                     <div className="nav-card">
                         <a href="mailto:mertcakirm3377@gmail.com">
-                            <svg width="30" fill="white" height="30" xmlns="http://www.w3.org/2000/svg"
-                                 viewBox="0 0 24 24" fillRule="evenodd" clipRule="evenodd">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" viewBox="0 0 24 24">
                                 <path
-                                    d="M22.288 21h-20.576c-.945 0-1.712-.767-1.712-1.712v-13.576c0-.945.767-1.712 1.712-1.712h20.576c.945 0 1.712.767 1.712 1.712v13.576c0 .945-.767 1.712-1.712 1.712zm-10.288-6.086l-9.342-6.483-.02 11.569h18.684v-11.569l-9.322 6.483zm8.869-9.914h-17.789l8.92 6.229s6.252-4.406 8.869-6.229z"/>
+                                    d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
                             </svg>
                         </a>
                         <span className="tooltip">{language === "tr" ? "İletişim" : "Contact"}</span>
                     </div>
 
                     <div className="nav-card lang-card">
-                        <button onClick={toggleLanguage} className="lang-btn">
+                    <button onClick={toggleLanguage} className="lang-btn">
                             <svg viewBox="0 0 24 24" width="30" fill="white" height="30"
                                  xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
                                 <path
