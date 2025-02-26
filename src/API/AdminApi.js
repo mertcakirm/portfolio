@@ -171,3 +171,21 @@ export const DeleteEduReq = async (id) => {
         throw error;
     }
 };
+
+export const ShowBlogReq = async (id) => {
+    try {
+        await api.put(`/blogs/show/${id}`);
+    } catch (error) {
+        console.error("Blog güncellenirken hata oluştu:", error);
+        throw error;
+    }
+}
+
+export const HiddenBlogReq = async (id) => {
+    try {
+        await api.put(`/blogs/hidden/${id}`);
+    } catch (error) {
+        console.error("Blog güncellenirken hata oluştu:", error);
+        throw error;
+    }
+}

@@ -1,5 +1,13 @@
 import {useEffect, useState} from "react";
-import {DeleteBlogReq, DeleteRolereq, DeleteUserreq, GetRoles, GetUsers} from "../../API/AdminApi.js";
+import {
+    DeleteBlogReq,
+    DeleteRolereq,
+    DeleteUserreq,
+    GetRoles,
+    GetUsers,
+    HiddenBlogReq,
+    ShowBlogReq
+} from "../../API/AdminApi.js";
 import AddUserPopup from "./newUserPopup.jsx";
 import AddRolePopup from "./newRolePopup.jsx";
 import {BlogsGetAll} from "../../API/MainApi.js";
@@ -61,6 +69,14 @@ const GeneralComp = () => {
         setBlogs(data);
     }
 
+    const ShowBlog =async(id)=>{
+        await ShowBlogReq(id);
+        setRefresh((prevState) => !prevState);
+    }
+    const HiddenBlog =async(id)=>{
+        await HiddenBlogReq(id);
+        setRefresh((prevState) => !prevState);
+    }
     useEffect(() => {
         UserFetch();
         RoleFetch();
@@ -175,7 +191,9 @@ const GeneralComp = () => {
                             <th scope="col">Blog ID</th>
                             <th scope="col">Blog Adı</th>
                             <th scope="col">Blog Name</th>
-                            <th scope="col">İşlem</th>
+                            <th scope="col">Blog Sahibi</th>
+                            <th scope="col">Görünürlük</th>
+                            <th scope="col" className=" text-center">İşlem</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -184,8 +202,24 @@ const GeneralComp = () => {
                                 <th scope="row">{blog.blogid}</th>
                                 <td>{blog.bloG_Name_tr}</td>
                                 <td>{blog.blogName}</td>
+                                <td>{blog.createdBy}</td>
+                                <td>{blog.showBlog == false ? "Pasif" : "Aktif"}</td>
                                 <td>
-                                    <button onClick={() => DeleteBlog(blog.blogid)} className="delete-btn">Sil</button>
+                                    <div className="row justify-content-center column-gap-3">
+                                        <button onClick={() => {
+                                            if (blog.showBlog == false) {
+                                                ShowBlog(blog.blogid)
+                                            } else {
+                                                HiddenBlog(blog.blogid)
+                                            }
+                                        }}
+                                                className="delete-btn col-4">Görünürlük Değiştir
+                                        </button>
+                                        <button onClick={() => DeleteBlog(blog.blogid)}
+                                                className="delete-btn col-4">Sil
+                                        </button>
+                                    </div>
+
                                 </td>
                             </tr>
                         ))}

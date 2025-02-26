@@ -45,7 +45,13 @@ const Blog_detail = () => {
                 <div className="row justify-content-center">
                     {blogState ? (
                         <div className="row justify-content-center col-12 row-gap-5">
-                            <div className="text-center col-12 titles">{language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}</div>
+                            <div className="row col-12 justify-content-between">
+                                <div className="col-lg-3 col-12"></div>
+                                <div className="text-center col-lg-6 col-12 titles w-auto">{language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}</div>
+                                <div className="createdBy col-lg-3 col-12">  {language === "tr" ? "Oluşturan: " : "Created By: "}{blogState.createdBy}</div>
+                            </div>
+
+
                             {blogState.blog_Contents.map((content, index) => (
                                 <div key={index} className="col-12 justify-content-center text-center row-gap-3 row">
                                     <img
@@ -59,7 +65,7 @@ const Blog_detail = () => {
                             ))}
                         </div>
                     ) : (
-                    <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
+                        <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
                         )}
                     </div>
                 </div>

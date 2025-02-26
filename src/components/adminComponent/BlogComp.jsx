@@ -1,18 +1,22 @@
 import { useState } from 'react';
 import {AddBlogReq} from "../../API/AdminApi.js";
+import {getCookie} from "../../API/Cookie.js";
 
 const generateRandomBlogId = () => {
     return Math.floor(100000000 + Math.random() * 900000000).toString();
 };
 
 const BlogComp = () => {
+
+
     const [blogId, setBlogId] = useState(generateRandomBlogId());
     const [file, setFile] = useState(null);
     const [dragActive, setDragActive] = useState(false);
     const [contents, setContents] = useState([
         { id: generateRandomBlogId(), blogId: blogId, title_en: "", title_tr: "", content_en: "", content_tr: "", image_base64: "" }
     ]);
-    const [blogs, setBlogs] = useState({ BlogName: "", image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: "" });
+
+    const [blogs, setBlogs] = useState({ ShowBlog:0,BlogName: "", image_base64: "", Blog_description: "", BLOG_Name_tr: "", BLOG_desc_tr: ""});
 
     const addContent = () => {
         setContents([...contents, {
@@ -25,6 +29,8 @@ const BlogComp = () => {
             Blog_image_base64: ""
         }]);
     };
+
+
 
     const updateContent = (id, field, value) => {
         setContents(contents.map((content) => (content.id === id ? { ...content, [field]: value } : content)));
@@ -89,6 +95,18 @@ const BlogComp = () => {
             image_base64: content.image_base64 || ""
         }));
 
+            const token = getCookie("token");
+            const decodeJWT = (token) => {
+                const payload = token.split(".")[1];
+                return JSON.parse(atob(payload));
+            };
+            if (!token) {
+                return <div>Token bulunamadı</div>;
+            }
+
+            const decoded = decodeJWT(token);
+            const name = decoded.iss;
+
         const submitObj = {
             Blogid: blogId,
             BlogName: blogs.BlogName,
@@ -97,7 +115,9 @@ const BlogComp = () => {
             BLOG_Name_tr: blogs.BLOG_Name_tr,
             BLOG_desc_tr: blogs.BLOG_desc_tr,
             blog_Contents: updatedContents,
+            CreatedBy: name
         };
+        console.log(submitObj);
 
         try {
             const response = await AddBlogReq(submitObj);
