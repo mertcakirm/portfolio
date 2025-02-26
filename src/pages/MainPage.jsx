@@ -73,7 +73,7 @@ const MainPage = () => {
                     <span>{language === "tr" ? "Gösterilecek açıklama bulunmadı" : "No information available"}</span>
                 )}
 
-                <div className="row justify-content-between row-gap-3 col-12">
+                <div className="row justify-content-center justify-content-lg-between mt-3 px-0 mx-0 row-gap-3 col-12">
                     <p className="titles col-12">{language === "tr" ? "EĞİTİMLERİM 📒" : "EDUCATİONS 📒"}</p>
                     {educations.map((item, index) => (
                         <div key={index} className="col-lg-6 col-12 animation-item-right  row col-12">
@@ -84,7 +84,7 @@ const MainPage = () => {
                     ))}
                 </div>
 
-                <div className="col-12  py-5 row">
+                <div className="col-12  py-5 px-0 mx-0 row">
                     <p className="titles col-12">{language === "tr" ? "YETKİNLİKLERİM👨🏻‍💻" : "SKILLS👨🏻‍💻"}</p>
                     <div className="skills-con">
                         {skills && skills.length > 0 ? (
@@ -96,9 +96,9 @@ const MainPage = () => {
                         )}
                     </div>
                 </div>
-                <div className="col-12  row py-5">
+                <div className="col-12  row py-5 px-0 mx-0">
                     <p className="titles col-12">{language === "tr" ? "PROJELERİM 🖥️" : "PROJECTS 🖥️"}</p>
-                    <div className="row  col-12 row-gap-3 justify-content-between">
+                    <div className="row  col-12 column-gap-5 row-gap-3 justify-content-center justify-content-lg-start  px-0 mx-0">
                         {projects && projects.length > 0 ? (
                             projects.map((project, index) => (
                                 <div key={index} className="project-card animation-item-right col-lg-4 row px-0">

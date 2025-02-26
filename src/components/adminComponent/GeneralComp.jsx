@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {
+    BlogsGetAll,
     DeleteBlogReq,
     DeleteRolereq,
     DeleteUserreq,
@@ -10,7 +11,6 @@ import {
 } from "../../API/AdminApi.js";
 import AddUserPopup from "./newUserPopup.jsx";
 import AddRolePopup from "./newRolePopup.jsx";
-import {BlogsGetAll} from "../../API/MainApi.js";
 import {getCookie} from "../../API/Cookie.js";
 
 const GeneralComp = () => {

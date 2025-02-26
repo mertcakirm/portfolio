@@ -35,6 +35,16 @@ export const GetUsers = async () => {
     }
 };
 
+export const BlogsGetAll = async ()=>{
+    try {
+        const result= await api.get(`/blogs/get/all`);
+        return result.data;
+    } catch (error) {
+        console.error("Rol verilerini alırken hata oluştu:", error);
+        throw error;
+    }
+}
+
 export const GetRoles = async () => {
     try {
         const result = await api.get("/roles/get/all");
@@ -45,7 +55,6 @@ export const GetRoles = async () => {
     }
 };
 
-// DELETE REQUESTS
 export const DeleteRolereq = async (id) => {
     try {
         await api.delete(`/roles/delete/${id}`);

@@ -17,10 +17,7 @@ export const ProjectsGetAll = async ()=>{
     return result.data;
 }
 
-export const BlogsGetAll = async ()=>{
-    const result= await axios.get(`${BASE_URL}/api/blogs/get/all`);
-    return result.data;
-}
+
 
 export const BlogsGetActive = async ()=>{
     const result= await axios.get(`${BASE_URL}/api/blogs/get/active`);
