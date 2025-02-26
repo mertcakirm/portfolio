@@ -41,7 +41,7 @@ const Blog_detail = () => {
                     {blogState ? (
                         <div className="row justify-content-center col-12 row-gap-5">
                             <div className="row col-12 justify-content-between">
-                                <div className="col-lg-3 col-12"></div>
+                                <div className="col-lg-3 col-12">{blogState.createdDate}</div>
                                 <div className="text-center col-lg-6 col-12 titles w-auto">{language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}</div>
                                 <div className="createdBy col-lg-3 col-12">  {language === "tr" ? "Oluşturan: " : "Created By: "}{blogState.createdBy}</div>
                             </div>
