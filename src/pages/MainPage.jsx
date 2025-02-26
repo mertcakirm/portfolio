@@ -22,7 +22,6 @@ const MainPage = () => {
     const mainGet=async ()=>{
         const mainobj = await MainGetAll()
         setMainItem(mainobj)
-        console.log(mainobj)
     }
     const skillsGet=async ()=>{
         const skillsobj = await SkillsGetAll()
@@ -35,7 +34,6 @@ const MainPage = () => {
     const EduGet=async ()=>{
         const Eduobj = await EducationsGetAll()
         setEducations(Eduobj)
-        console.log(Eduobj)
     }
     useEffect(()=>{
         mainGet();

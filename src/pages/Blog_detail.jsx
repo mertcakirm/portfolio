@@ -33,11 +33,6 @@ const Blog_detail = () => {
 
     }, []);
 
-    useEffect(() => {
-        console.log(blogState);
-
-    }, [blogState]);
-
     return (
         <div className="main-page-parent-con">
             <Navbar languageprops={handleLanguageChange} />

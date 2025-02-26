@@ -117,7 +117,6 @@ const BlogComp = () => {
             blog_Contents: updatedContents,
             CreatedBy: name
         };
-        console.log(submitObj);
 
         try {
             const response = await AddBlogReq(submitObj);

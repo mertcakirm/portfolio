@@ -52,7 +52,6 @@ const MainComp = () => {
 
     const updateMainData = async () => {
         try {
-            console.log("Güncellenecek Veri:", mainData);
             await UpdateContentsReq(mainData);
         } catch (error) {
             console.error("Metin güncellenirken hata oluştu:", error);
@@ -113,7 +112,6 @@ const MainComp = () => {
     const DeleteProject=async (id)=>{
         await DeleteProjectReq(id);
         setRefresh((prevState) => !prevState);
-        console.log(id)
     }
 
 
