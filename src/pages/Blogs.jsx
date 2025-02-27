@@ -31,7 +31,8 @@ const Blogs = () => {
 
     const formatDate = (dateString) => {
         if (!dateString) return "";
-        return dateString.split('T')[0];
+        const datetime = dateString.split('T')[0];
+        return  datetime.split("-").reverse().join("-");
     };
     return (
         <div className="main-page-parent-con">

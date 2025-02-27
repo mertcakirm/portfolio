@@ -34,7 +34,8 @@ const Blog_detail = () => {
 
     const formatDate = (dateString) => {
         if (!dateString) return "";
-        return dateString.split('T')[0];
+        const datetime = dateString.split('T')[0];
+        return  datetime.split("-").reverse().join("-");
     };
 
     return (
@@ -45,7 +46,7 @@ const Blog_detail = () => {
                     {blogState ? (
                         <div className="row justify-content-center col-12 row-gap-5">
                             <div className="row col-12 justify-content-between">
-                                <div className="col-lg-3 col-12">{formatDate(blogState.createdDate)}</div>
+                                <div className="createdBy col-lg-3 col-12">{formatDate(blogState.createdDate)}</div>
                                 <div className="text-center col-lg-6 col-12 titles w-auto">
                                     {language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}
                                 </div>
