@@ -29,6 +29,10 @@ const Blogs = () => {
         GetBlogs();
     }, []);
 
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        return dateString.split('T')[0];
+    };
     return (
         <div className="main-page-parent-con">
             <Navbar languageprops={handleLanguageChange}/>
@@ -50,8 +54,13 @@ const Blogs = () => {
                                     <p className="blog-card-desc">
                                         {language === "tr" ? blog.bloG_desc_tr : blog.blog_description}
                                     </p>
-                                    <p className="createdBy w-100 px-4">
-                                        {language === "tr" ?  "Oluşturan: " : "Created By: "}{blog.createdBy}
+                                    <div className="w-100 px-0"></div>
+                                    <p className="createdBy w-100 px-4 py-0 m-0">
+                                        {language === "tr" ? "Oluşturan: " : "Created By: "}{blog.createdBy}
+                                    </p>
+                                    <p className="createdBy w-100 px-4 py-0 m-0">
+                                        {formatDate(blog.createdDate)}
+
                                     </p>
                                 </a>
                             </div>

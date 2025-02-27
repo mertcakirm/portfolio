@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from "../components/navbar.jsx";
-import {GetBlogFromId} from "../API/MainApi.js";
-import './css/Blog_detail.css'
+import { GetBlogFromId } from "../API/MainApi.js";
+import './css/Blog_detail.css';
 
 const Blog_detail = () => {
     const { id } = useParams();
@@ -26,12 +26,16 @@ const Blog_detail = () => {
     const getBlog = async () => {
         const blogsobj = await GetBlogFromId(id);
         setBlogState(blogsobj);
-    }
+    };
 
     useEffect(() => {
         getBlog();
-
     }, []);
+
+    const formatDate = (dateString) => {
+        if (!dateString) return "";
+        return dateString.split('T')[0];
+    };
 
     return (
         <div className="main-page-parent-con">
@@ -41,11 +45,14 @@ const Blog_detail = () => {
                     {blogState ? (
                         <div className="row justify-content-center col-12 row-gap-5">
                             <div className="row col-12 justify-content-between">
-                                <div className="col-lg-3 col-12">{blogState.createdDate}</div>
-                                <div className="text-center col-lg-6 col-12 titles w-auto">{language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}</div>
-                                <div className="createdBy col-lg-3 col-12">  {language === "tr" ? "Oluşturan: " : "Created By: "}{blogState.createdBy}</div>
+                                <div className="col-lg-3 col-12">{formatDate(blogState.createdDate)}</div>
+                                <div className="text-center col-lg-6 col-12 titles w-auto">
+                                    {language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}
+                                </div>
+                                <div className="createdBy col-lg-3 col-12">
+                                    {language === "tr" ? "Oluşturan: " : "Created By: "}{blogState.createdBy}
+                                </div>
                             </div>
-
 
                             {blogState.blog_Contents.map((content, index) => (
                                 <div key={index} className="col-12 justify-content-center text-center row-gap-3 row">
@@ -61,10 +68,10 @@ const Blog_detail = () => {
                         </div>
                     ) : (
                         <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
-                        )}
-                    </div>
+                    )}
                 </div>
             </div>
+        </div>
     );
 };
 

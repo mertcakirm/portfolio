@@ -1,5 +1,5 @@
 .blog-card{
-    height:450px;
+    mib-height:500px;
     border-radius: 10px;
     border: 1px solid #ffffff;
     transition: .4s;
@@ -45,7 +45,7 @@
 
 @media (max-width: 800px){
     .blog-card{
-        height: 500px;
+        min-height: 500px;
         transition: .4s;
     }
 
