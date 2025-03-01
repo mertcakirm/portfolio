@@ -174,9 +174,11 @@
 
     .skills-con{
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         row-gap: 10px;
         text-align: center;
+        align-items: center;
+        justify-content: center;
     }
 }
 
