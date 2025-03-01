@@ -37,7 +37,7 @@ export const GetUsers = async () => {
 
 export const BlogsGetAll = async ()=>{
     try {
-        const result= await api.get(`/blogs/get/all`);
+        const result= await api.get(`/blogs/all`);
         return result.data;
     } catch (error) {
         console.error("Rol verilerini alırken hata oluştu:", error);
