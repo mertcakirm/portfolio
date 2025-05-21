@@ -1,6 +1,7 @@
 import './css/navbar.css'
-import {useEffect ,useState} from "react";
+import {useEffect, useState} from "react";
 import {en_Icon, tr_Icon} from "./icons.jsx";
+
 const NavBar = ({languageprops}) => {
     const [language, setLanguage] = useState(() => {
         return localStorage.getItem("lang") || "en";
@@ -36,7 +37,7 @@ const NavBar = ({languageprops}) => {
 
 
                     <div className="nav-card">
-                    <a href="/blogs">
+                        <a href="/blogs">
                             <svg clipRule="evenodd" fillRule="evenodd" strokeLinejoin="round" width="30" height="30"
                                  fill="white" strokeMiterlimit="2" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +50,7 @@ const NavBar = ({languageprops}) => {
                     </div>
 
                     <div className="nav-card">
-                    <a href="https://github.com/mertcakirm" target="_blank">
+                        <a href="https://github.com/mertcakirm" target="_blank">
                             <svg className="icon" xmlns="http://www.w3.org/2000/svg" fill="white" width="30" height="30"
                                  viewBox="0 0 24 24">
                                 <path
@@ -61,7 +62,8 @@ const NavBar = ({languageprops}) => {
 
                     <div className="nav-card">
                         <a href="mailto:mertcakirm3377@gmail.com">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" viewBox="0 0 24 24">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white"
+                                 viewBox="0 0 24 24">
                                 <path
                                     d="M12 12.713l-11.985-9.713h23.97l-11.985 9.713zm0 2.574l-12-9.725v15.438h24v-15.438l-12 9.725z"/>
                             </svg>
@@ -70,7 +72,7 @@ const NavBar = ({languageprops}) => {
                     </div>
 
                     <div className="nav-card lang-card">
-                    <button onClick={toggleLanguage} className="lang-btn">
+                        <button onClick={toggleLanguage} className="lang-btn">
                             <svg viewBox="0 0 24 24" width="30" fill="white" height="30"
                                  xmlns="http://www.w3.org/2000/svg" fillRule="evenodd" clipRule="evenodd">
                                 <path
@@ -92,7 +94,7 @@ const NavBar = ({languageprops}) => {
 
 
                         </span>
-                                </div>
+                    </div>
 
                 </div>
 

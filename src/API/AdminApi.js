@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie, getCookie } from "./Cookie.js";
+import {setCookie, getCookie} from "./Cookie.js";
 
 const BASE_URL = "http://localhost:5260/api";
 
@@ -35,9 +35,9 @@ export const GetUsers = async () => {
     }
 };
 
-export const BlogsGetAll = async ()=>{
+export const BlogsGetAll = async () => {
     try {
-        const result= await api.get(`/blogs/all`);
+        const result = await api.get(`/blogs/all`);
         return result.data;
     } catch (error) {
         console.error("Rol verilerini alırken hata oluştu:", error);

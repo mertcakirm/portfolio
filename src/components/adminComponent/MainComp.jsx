@@ -19,9 +19,15 @@ const MainComp = () => {
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
     const [educations, setEducations] = useState([]);
-    const [mainData, setMainData] = useState({Id:1,header_tr:"",description_tr:"",header_en:"",description_en:""});
+    const [mainData, setMainData] = useState({
+        Id: 1,
+        header_tr: "",
+        description_tr: "",
+        header_en: "",
+        description_en: ""
+    });
     const [imageBase64, setImageBase64] = useState("");
-    const [newEducation, setNewEducation] = useState({EducationText:"",Egitim:""});
+    const [newEducation, setNewEducation] = useState({EducationText: "", Egitim: ""});
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -34,7 +40,7 @@ const MainComp = () => {
         }
     };
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setMainData((prevData) => ({
             ...prevData,
             [name]: value,
@@ -43,7 +49,7 @@ const MainComp = () => {
 
 
     const handleEduChange = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setNewEducation((prevData) => ({
             ...prevData,
             [name]: value,
@@ -62,21 +68,21 @@ const MainComp = () => {
         setIsPopupOpen(true);
     }
 
-    const handleClosePopup = () =>{
+    const handleClosePopup = () => {
         setIsPopupOpen(false);
         setRefresh((prevState) => !prevState);
     }
-    const projectsGet=async ()=>{
+    const projectsGet = async () => {
         const projectsObj = await ProjectsGetAll()
         setProjects(projectsObj)
     }
 
-    const skillsGet=async ()=>{
+    const skillsGet = async () => {
         const skillsobj = await SkillsGetAll()
         setSkills(skillsobj)
     }
 
-    const eduGet=async ()=>{
+    const eduGet = async () => {
         const eduobj = await EducationsGetAll();
         setEducations(eduobj);
     }
@@ -100,16 +106,16 @@ const MainComp = () => {
         }
     };
 
-    const changeImage=async ()=>{
+    const changeImage = async () => {
         await UpdateImageReq(
             {
-                main_image_base64:imageBase64
+                main_image_base64: imageBase64
             }
         )
         setImageBase64(null)
     }
 
-    const DeleteProject=async (id)=>{
+    const DeleteProject = async (id) => {
         await DeleteProjectReq(id);
         setRefresh((prevState) => !prevState);
     }
@@ -141,17 +147,17 @@ const MainComp = () => {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         skillsGet();
         projectsGet();
         eduGet();
-    },[])
+    }, [])
 
-    useEffect(()=>{
+    useEffect(() => {
         skillsGet();
         projectsGet();
         eduGet();
-    },[refresh])
+    }, [refresh])
 
     const decodeJWT = (token) => {
         const payload = token.split(".")[1];
@@ -227,8 +233,10 @@ const MainComp = () => {
                 <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-3 text-center">Eğitimleri Yönet</h3>
-                        <input type="text" name="EducationText" value={newEducation.EducationText} onChange={handleEduChange} placeholder="Education" className="col-2 login-inp"/>
-                        <input type="text" name="Egitim" value={newEducation.Egitim} onChange={handleEduChange} placeholder="Eğitim" className="col-2 login-inp"/>
+                        <input type="text" name="EducationText" value={newEducation.EducationText}
+                               onChange={handleEduChange} placeholder="Education" className="col-2 login-inp"/>
+                        <input type="text" name="Egitim" value={newEducation.Egitim} onChange={handleEduChange}
+                               placeholder="Eğitim" className="col-2 login-inp"/>
                         <button className="col-2 login-btn" onClick={AddEducation}>Eğitim Ekle</button>
 
                         <div className="col-12">
@@ -336,10 +344,13 @@ const MainComp = () => {
             </div>
         </div>
     ) : (
-        <div className="w-100 text-center align-items-center justify-content-center row-gap-5" style={{height:'100vh',display:'flex',flexDirection:'column'}}>
-                <svg className="col-12" xmlns="http://www.w3.org/2000/svg" fill="white" width="200" height="200" viewBox="0 0 24 24">
-                    <path d="M16.143 2l5.857 5.858v8.284l-5.857 5.858h-8.286l-5.857-5.858v-8.284l5.857-5.858h8.286zm.828-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm.932 11.667c-.127.328-1.695 3.888-2.096 4.786-.42.941-1.239 1.881-2.751 1.881h-2.627c-1.592 0-2.43-.945-2.43-2.596v-7.208c0-.956 1.316-.908 1.316-.044v3.16c0 .26.478.259.478 0v-5.079c0-.982 1.472-.957 1.472 0v4.795c0 .264.443.252.443-.005v-5.628c0-.957 1.457-.984 1.457 0l.001 5.692c0 .254.459.261.459 0v-4.78c0-.905 1.596-.933 1.596 0v5.417c0 .331.327.384.45.131.118-.24.605-1.315.613-1.327.49-1.029 2.128-.404 1.619.805z"/>
-                </svg>
+        <div className="w-100 text-center align-items-center justify-content-center row-gap-5"
+             style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
+            <svg className="col-12" xmlns="http://www.w3.org/2000/svg" fill="white" width="200" height="200"
+                 viewBox="0 0 24 24">
+                <path
+                    d="M16.143 2l5.857 5.858v8.284l-5.857 5.858h-8.286l-5.857-5.858v-8.284l5.857-5.858h8.286zm.828-2h-9.942l-7.029 7.029v9.941l7.029 7.03h9.941l7.03-7.029v-9.942l-7.029-7.029zm.932 11.667c-.127.328-1.695 3.888-2.096 4.786-.42.941-1.239 1.881-2.751 1.881h-2.627c-1.592 0-2.43-.945-2.43-2.596v-7.208c0-.956 1.316-.908 1.316-.044v3.16c0 .26.478.259.478 0v-5.079c0-.982 1.472-.957 1.472 0v4.795c0 .264.443.252.443-.005v-5.628c0-.957 1.457-.984 1.457 0l.001 5.692c0 .254.459.261.459 0v-4.78c0-.905 1.596-.933 1.596 0v5.417c0 .331.327.384.45.131.118-.24.605-1.315.613-1.327.49-1.029 2.128-.404 1.619.805z"/>
+            </svg>
             <h3 className="col-12">Bu alana giriş yetkiniz bulunmamaktadır!!!</h3>
         </div>
     );

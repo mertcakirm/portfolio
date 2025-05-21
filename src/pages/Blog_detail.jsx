@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
 import Navbar from "../components/navbar.jsx";
-import { GetBlogFromId } from "../API/MainApi.js";
+import {GetBlogFromId} from "../API/MainApi.js";
 import './css/Blog_detail.css';
 
 const Blog_detail = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const [blogState, setBlogState] = useState(null);
 
     const [language, setLanguage] = useState(() => {
@@ -35,12 +35,12 @@ const Blog_detail = () => {
     const formatDate = (dateString) => {
         if (!dateString) return "";
         const datetime = dateString.split('T')[0];
-        return  datetime.split("-").reverse().join("-");
+        return datetime.split("-").reverse().join("-");
     };
 
     return (
         <div className="main-page-parent-con">
-            <Navbar languageprops={handleLanguageChange} />
+            <Navbar languageprops={handleLanguageChange}/>
             <div className="container-fluid blog_detail_con">
                 <div className="row justify-content-center">
                     {blogState ? (

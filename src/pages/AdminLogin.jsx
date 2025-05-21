@@ -14,7 +14,7 @@ const AdminLogin = () => {
         };
         try {
             await LoginRequest(loginDTO);
-            window.location.href="/admin-panel/main"
+            window.location.href = "/admin-panel/main"
         } catch (error) {
             console.error("Giriş yapılamadı:", error);
             alert("Giriş Yapılamadı")
@@ -24,12 +24,14 @@ const AdminLogin = () => {
     return (
         <div className="main-page-parent-con row p-0 m-0">
             <div className="col-7">
-                <img src={Login} className="img-fluid w-100 object-fit-cover h-100" alt="login" />
+                <img src={Login} className="img-fluid w-100 object-fit-cover h-100" alt="login"/>
             </div>
             <div className="col-5 login-flex justify-content-center align-items-center p-5">
                 <h4>Giriş Yap</h4>
-                <input placeholder="Kullanıcı Adı" type="text" value={username} onChange={(e)=>setUsername(e.target.value)} className="col-12 login-inp"/>
-                <input placeholder="Parola" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} className="col-12 login-inp"/>
+                <input placeholder="Kullanıcı Adı" type="text" value={username}
+                       onChange={(e) => setUsername(e.target.value)} className="col-12 login-inp"/>
+                <input placeholder="Parola" type="password" value={password}
+                       onChange={(e) => setPassword(e.target.value)} className="col-12 login-inp"/>
                 <button className="col-12 login-btn" onClick={HandleLogin}>Giriş Yap</button>
 
             </div>

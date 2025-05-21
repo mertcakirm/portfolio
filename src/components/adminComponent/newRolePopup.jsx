@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {AddRoleReq} from "../../API/AdminApi.js";
 
-const AddRolePopup = ({ isOpen2, onClose2 }) => {
+const AddRolePopup = ({isOpen2, onClose2}) => {
     const [userData, setUserData] = useState({
         RoleName: "",
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value });
+        const {name, value} = e.target;
+        setUserData({...userData, [name]: value});
     };
 
     const handleSubmit = (e) => {
@@ -30,7 +30,7 @@ const AddRolePopup = ({ isOpen2, onClose2 }) => {
                             type="text"
                             name="RoleName"
                             value={userData.RoleName}
-                            style={{ height: "40px",color: "black" }}
+                            style={{height: "40px", color: "black"}}
                             onChange={handleChange}
                             required
                         />

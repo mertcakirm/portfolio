@@ -2,6 +2,7 @@ import Navbar from "../components/navbar.jsx";
 import './css/MainPage.css'
 import {EducationsGetAll, MainGetAll, ProjectsGetAll, SkillsGetAll} from '../API/MainApi.js'
 import {useEffect, useState} from "react";
+
 const MainPage = () => {
     const [language, setLanguage] = useState(() => {
         return localStorage.getItem("lang") || "en";
@@ -19,32 +20,32 @@ const MainPage = () => {
     const handleLanguageChange = (newLanguage) => {
         setLanguage(newLanguage);
     };
-    const mainGet=async ()=>{
+    const mainGet = async () => {
         const mainobj = await MainGetAll()
         setMainItem(mainobj)
     }
-    const skillsGet=async ()=>{
+    const skillsGet = async () => {
         const skillsobj = await SkillsGetAll()
         setSkills(skillsobj)
     }
-    const projectsGet=async ()=>{
+    const projectsGet = async () => {
         const projectsObj = await ProjectsGetAll()
         setProjects(projectsObj)
     }
-    const EduGet=async ()=>{
+    const EduGet = async () => {
         const Eduobj = await EducationsGetAll()
         setEducations(Eduobj)
     }
-    useEffect(()=>{
+    useEffect(() => {
         mainGet();
         skillsGet();
         projectsGet();
         EduGet();
-    },[])
+    }, [])
 
     return (
         <div className="main-page-parent-con">
-            <Navbar languageprops={handleLanguageChange} />
+            <Navbar languageprops={handleLanguageChange}/>
             <div className="container p-5">
                 {mainItem && mainItem.length > 0 ? (
                     mainItem.map((item, index) => (
@@ -76,7 +77,7 @@ const MainPage = () => {
                     {educations.map((item, index) => (
                         <div key={index} className="col-lg-6 col-12 animation-item-right  row col-12">
                             <div className="edu-card col-12">
-                                {language === "tr" ? item.egitim : item.educationText }
+                                {language === "tr" ? item.egitim : item.educationText}
                             </div>
                         </div>
                     ))}
@@ -96,7 +97,8 @@ const MainPage = () => {
                 </div>
                 <div className="col-12  row py-5 px-0 mx-0">
                     <p className="titles col-12">{language === "tr" ? "PROJELERİM 🖥️" : "PROJECTS 🖥️"}</p>
-                    <div className="row  col-12 column-gap-5 row-gap-3 justify-content-center justify-content-lg-start  px-0 mx-0">
+                    <div
+                        className="row  col-12 column-gap-5 row-gap-3 justify-content-center justify-content-lg-start  px-0 mx-0">
                         {projects && projects.length > 0 ? (
                             projects.map((project, index) => (
                                 <div key={index} className="project-card animation-item-right col-lg-4 row px-0">

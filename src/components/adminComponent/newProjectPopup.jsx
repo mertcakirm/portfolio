@@ -1,20 +1,20 @@
-import { useState } from "react";
+import {useState} from "react";
 import {AddProjectReq} from "../../API/AdminApi.js";
 
-const NewProjectPopup = ({ isOpen, onClose }) => {
+const NewProjectPopup = ({isOpen, onClose}) => {
     const [projectData, setProjectData] = useState({
         title_en: "",
-        title_tr:"",
-        description_tr:"",
-        description_en:"",
-        image_base64:"",
-        href:"",
-        Used_skills:"",
+        title_tr: "",
+        description_tr: "",
+        description_en: "",
+        image_base64: "",
+        href: "",
+        Used_skills: "",
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setProjectData({ ...projectData, [name]: value });
+        const {name, value} = e.target;
+        setProjectData({...projectData, [name]: value});
     };
 
     const handleFileChange = (e) => {
@@ -23,7 +23,7 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
-                setProjectData({ ...projectData, image_base64: reader.result });
+                setProjectData({...projectData, image_base64: reader.result});
             };
         }
     };
@@ -44,10 +44,10 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
 
     return (
         <div className="popup-overlay">
-            <div className="popup-content" style={{width:'600px'}}>
+            <div className="popup-content" style={{width: '600px'}}>
                 <h2>Proje Ekle</h2>
                 <form className="row" onSubmit={handleSubmit}>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Title:</label>
                         <input
                             type="text"
@@ -58,7 +58,7 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Başlık:</label>
                         <input
                             type="text"
@@ -69,7 +69,7 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Description:</label>
                         <input
                             type="text"
@@ -80,7 +80,7 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Açıklama:</label>
                         <input
                             type="text"
@@ -91,17 +91,17 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
                             required
                         />
                     </div>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Görsel:</label>
                         <input
                             type="file"
                             name="image_base64"
-                            style={{height: "50px", color: "white",border:'0'}}
+                            style={{height: "50px", color: "white", border: '0'}}
                             onChange={handleFileChange}
                             required
                         />
                     </div>
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Link:</label>
                         <input
                             type="text"
@@ -113,7 +113,7 @@ const NewProjectPopup = ({ isOpen, onClose }) => {
                         />
                     </div>
 
-                    <div style={{width:'50%'}} className="form-group">
+                    <div style={{width: '50%'}} className="form-group">
                         <label>Kullanılan Diller:</label>
                         <input
                             type="text"

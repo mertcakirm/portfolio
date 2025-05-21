@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {AddUserReq, GetRoles} from "../../API/AdminApi.js";
 
-const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
+const AddUserPopup = ({isOpen, onClose, reflesh}) => {
     const [userData, setUserData] = useState({
         Username: "",
         Password: "",
@@ -10,8 +10,8 @@ const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
     const [roles, setRoles] = useState({});
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setUserData({ ...userData, [name]: value });
+        const {name, value} = e.target;
+        setUserData({...userData, [name]: value});
     };
 
     const handleSubmit = (e) => {
@@ -25,9 +25,9 @@ const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
         const data = await GetRoles();
         setRoles(data);
     }
-    useEffect(()=>{
+    useEffect(() => {
         GetRolesForDropDown();
-    },[])
+    }, [])
 
     if (!isOpen) return null;
 
@@ -42,7 +42,7 @@ const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
                             type="text"
                             name="Username"
                             value={userData.Username}
-                            style={{ height: "40px",color: "black" }}
+                            style={{height: "40px", color: "black"}}
                             onChange={handleChange}
                             required
                         />
@@ -53,7 +53,7 @@ const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
                             type="password"
                             name="Password"
                             value={userData.Password}
-                            style={{ height: "40px",color: "black" }}
+                            style={{height: "40px", color: "black"}}
                             onChange={handleChange}
                             required
                         />
@@ -64,10 +64,10 @@ const AddUserPopup = ({ isOpen, onClose , reflesh }) => {
                             name="RoleId"
                             value={userData.RoleId}
                             onChange={handleChange}
-                            style={{ height: "40px",color: "black" }}
+                            style={{height: "40px", color: "black"}}
                         >
                             <option value="">Role Seçin</option>
-                            {roles.map((role,index) => (
+                            {roles.map((role, index) => (
                                 <option key={index} value={role.roleid}>{role.roleName}</option>
                             ))}
                         </select>

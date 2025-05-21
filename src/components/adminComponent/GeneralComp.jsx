@@ -25,7 +25,7 @@ const GeneralComp = () => {
     const handleOpenPopup = () => {
         setIsPopupOpen(true);
     }
-    const handleClosePopup = () =>{
+    const handleClosePopup = () => {
         setIsPopupOpen(false);
         setRefresh((prevState) => !prevState);
     }
@@ -38,42 +38,42 @@ const GeneralComp = () => {
         setRefresh((prevState) => !prevState);
     }
 
-    const RoleFetch=async()=>{
-        const data=await GetRoles();
+    const RoleFetch = async () => {
+        const data = await GetRoles();
         setRoles(data);
     }
 
-    const UserFetch=async()=>{
-        const data=await GetUsers();
+    const UserFetch = async () => {
+        const data = await GetUsers();
         setUsers(data);
     }
 
-    const DeleteUser=async (id)=>{
+    const DeleteUser = async (id) => {
         await DeleteUserreq(id);
         setRefresh((prevState) => !prevState);
     }
 
-    const DeleteRole=async (id)=>{
+    const DeleteRole = async (id) => {
         await DeleteRolereq(id);
         setRefresh((prevState) => !prevState);
     }
 
-    const DeleteBlog=async (id)=>{
+    const DeleteBlog = async (id) => {
         await DeleteBlogReq(id);
         setRefresh((prevState) => !prevState);
 
     }
 
-    const BlogsGet = async()=>{
+    const BlogsGet = async () => {
         const data = await BlogsGetAll()
         setBlogs(data);
     }
 
-    const ShowBlog =async(id)=>{
+    const ShowBlog = async (id) => {
         await ShowBlogReq(id);
         setRefresh((prevState) => !prevState);
     }
-    const HiddenBlog =async(id)=>{
+    const HiddenBlog = async (id) => {
         await HiddenBlogReq(id);
         setRefresh((prevState) => !prevState);
     }
@@ -82,13 +82,13 @@ const GeneralComp = () => {
         RoleFetch();
         BlogsGet();
 
-    },[])
+    }, [])
 
     useEffect(() => {
         UserFetch();
         RoleFetch();
         BlogsGet();
-    },[refresh])
+    }, [refresh])
 
     const decodeJWT = (token) => {
         const payload = token.split(".")[1];
@@ -115,8 +115,8 @@ const GeneralComp = () => {
                         <AddUserPopup
                             isOpen={isPopupOpen}
                             onClose={handleClosePopup}
-                            reflesh={(b)=>{
-                                if(b===true){
+                            reflesh={(b) => {
+                                if (b === true) {
                                     setRefresh(prev => !prev);
                                 }
                             }}
