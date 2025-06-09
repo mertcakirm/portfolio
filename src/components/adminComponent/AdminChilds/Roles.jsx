@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
-import AddRolePopup from "../newRolePopup.jsx";
 import {DeleteRolereq, GetRoles} from "../../../API/AdminApi.js";
+import AddRolePopup from "../newRolePopup.jsx";
 
 const Roles = () => {
-    const [isPopupOpen2, setIsPopupOpen2] = useState(false);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [roles, setRoles] = useState([]);
     const [refresh, setRefresh] = useState(false);
 
@@ -11,11 +11,11 @@ const Roles = () => {
         const data = await GetRoles();
         setRoles(data);
     }
-    const handleOpenPopup2 = () => {
-        setIsPopupOpen2(true);
+    const handleOpenPopup = () => {
+        setIsPopupOpen(true);
     }
-    const handleClosePopup2 = () => {
-        setIsPopupOpen2(false);
+    const handleClosePopup = () => {
+        setIsPopupOpen(false);
         setRefresh((prevState) => !prevState);
     }
 
@@ -38,13 +38,13 @@ const Roles = () => {
         <div className="col-12 mt-5">
             <div className="row px-3 justify-content-between">
                 <h3 className="col-6">Roller</h3>
-                <button className="col-2 add-btn" onClick={handleOpenPopup2}>Rol Ekle</button>
+                <button className="col-2 add-btn" onClick={handleOpenPopup}>Rol Ekle</button>
                 <AddRolePopup
-                    isOpen2={isPopupOpen2}
-                    onClose2={handleClosePopup2}
+                    isOpen={isPopupOpen}
+                    onClose={handleClosePopup}
                 />
             </div>
-            <table className="table mt-5 table-striped table-dark">
+            <table className="table mt-5 text-center table-striped table-dark">
                 <thead>
                 <tr>
                     <th scope="col">Rol ID</th>

@@ -42,7 +42,7 @@ const Blog = () => {
             <div className="row px-3 justify-content-between">
                 <h3 className="col-6">Bloglar</h3>
             </div>
-            <table className="table mt-5 table-striped table-dark">
+            <table className="table mt-5 table-striped text-center table-dark">
                 <thead>
                 <tr>
                     <th scope="col">Blog ID</th>

@@ -23,9 +23,9 @@
 
 .delete-btn{
     background: red;
-    border:  none;
+    border:  1px solid #ffffff;
     border-radius: 5px;
-    aspect-ratio: 1/1;
+    padding: 10px 30px;
 }
 
 .add-btn{
@@ -33,9 +33,6 @@
     color: #ffffff;
     border: 1px solid #ffffff;
 }
-
-
-
 
 .popup-overlay {
     position: fixed;

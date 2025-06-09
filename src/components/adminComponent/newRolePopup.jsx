@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {AddRoleReq} from "../../API/AdminApi.js";
 
-const AddRolePopup = ({isOpen2, onClose2}) => {
+const AddRolePopup = ({isOpen, onClose}) => {
     const [userData, setUserData] = useState({
         RoleName: "",
     });
@@ -11,19 +11,18 @@ const AddRolePopup = ({isOpen2, onClose2}) => {
         setUserData({...userData, [name]: value});
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         AddRoleReq(userData)
-        onClose2();
+        onClose();
     };
 
-    if (!isOpen2) return null;
+    if (!isOpen) return null;
 
     return (
         <div className="popup-overlay">
             <div className="popup-content">
                 <h2>Rol Ekle</h2>
-                <form onSubmit={handleSubmit}>
+                <div>
                     <div className="form-group">
                         <label>İsim:</label>
                         <input
@@ -36,12 +35,12 @@ const AddRolePopup = ({isOpen2, onClose2}) => {
                         />
                     </div>
                     <div className="form-actions">
-                        <button type="button" className="add-btn" onClick={onClose2}>
+                        <button type="button" className="add-btn" onClick={onClose}>
                             İptal
                         </button>
-                        <button type="submit" className="add-btn">Kaydet</button>
+                        <button onClick={handleSubmit} className="add-btn">Kaydet</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

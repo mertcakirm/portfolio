@@ -14,10 +14,9 @@ const AddUserPopup = ({isOpen, onClose, reflesh}) => {
         setUserData({...userData, [name]: value});
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         AddUserReq(userData)
-        reflesh(true)
+        reflesh(true);
         onClose();
     };
 
@@ -35,7 +34,7 @@ const AddUserPopup = ({isOpen, onClose, reflesh}) => {
         <div className="popup-overlay">
             <div className="popup-content">
                 <h2>Kullanıcı Ekle</h2>
-                <form onSubmit={handleSubmit}>
+                <div>
                     <div className="form-group">
                         <label>İsim:</label>
                         <input
@@ -76,9 +75,9 @@ const AddUserPopup = ({isOpen, onClose, reflesh}) => {
                         <button type="button" className="add-btn" onClick={onClose}>
                             İptal
                         </button>
-                        <button type="submit" className="add-btn">Kaydet</button>
+                        <button onClick={handleSubmit} className="add-btn">Kaydet</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

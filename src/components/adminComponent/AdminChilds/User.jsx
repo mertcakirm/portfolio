@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import AddUserPopup from "../newUserPopup.jsx";
 import {DeleteUserreq, GetUsers} from "../../../API/AdminApi.js";
 import Pagination from "../../Pagination.jsx";
@@ -16,7 +16,7 @@ const User = () => {
     }
     const handleClosePopup = () => {
         setIsPopupOpen(false);
-        setRefresh((prevState) => !prevState);
+        setRefresh(!refresh);
     }
 
     const UserFetch = async () => {
@@ -49,12 +49,12 @@ const User = () => {
                     onClose={handleClosePopup}
                     reflesh={(b) => {
                         if (b === true) {
-                            setRefresh(prev => !prev);
+                            setRefresh(!refresh);
                         }
                     }}
                 />
             </div>
-            <table className="table mt-5 px-4 table-striped table-dark">
+            <table className="table text-center mt-5 px-4 table-striped table-dark">
                 <thead>
                 <tr>
                     <th scope="col">Kullanıcı ID</th>
