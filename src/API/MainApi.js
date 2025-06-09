@@ -18,8 +18,8 @@ export const ProjectsGetAll = async () => {
     return result.data;
 }
 
-export const BlogsGetActive = async () => {
-    const result = await axios.get(`${BASE_URL}/api/blogs/public`);
+export const BlogsGetActive = async (page,size) => {
+    const result = await axios.get(`${BASE_URL}/api/blogs/public?page=${page}&pageSize=${size}`);
     return result.data;
 }
 

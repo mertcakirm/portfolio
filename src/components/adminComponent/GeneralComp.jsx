@@ -12,6 +12,7 @@ import {
 import AddUserPopup from "./newUserPopup.jsx";
 import AddRolePopup from "./newRolePopup.jsx";
 import {getCookie} from "../../API/Cookie.js";
+import {BlogsGetActive} from "../../API/MainApi.js";
 
 const GeneralComp = () => {
     const [roles, setRoles] = useState([]);
@@ -65,8 +66,8 @@ const GeneralComp = () => {
     }
 
     const BlogsGet = async () => {
-        const data = await BlogsGetAll()
-        setBlogs(data);
+        const data = await BlogsGetAll(1,10)
+        setBlogs(data.items);
     }
 
     const ShowBlog = async (id) => {

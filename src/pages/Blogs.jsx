@@ -2,12 +2,15 @@ import Navbar from "../components/navbar.jsx";
 import {useEffect, useState} from "react";
 import './css/blogs.css';
 import {BlogsGetActive} from "../API/MainApi.js";
+import Pagination from "../components/Pagination.jsx";
 
 const Blogs = () => {
     const [language, setLanguage] = useState(() => {
         return localStorage.getItem("lang") || "en";
     });
     const [blogs, setBlogs] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(5);
 
     useEffect(() => {
         const lang = localStorage.getItem("lang");
@@ -21,13 +24,18 @@ const Blogs = () => {
     };
 
     const GetBlogs = async () => {
-        const Blogsobj = await BlogsGetActive();
-        setBlogs(Blogsobj);
+        const Blogsobj = await BlogsGetActive(page,8);
+        setBlogs(Blogsobj.items);
+        setTotalPages(Blogsobj.totalPages)
     };
 
     useEffect(() => {
         GetBlogs();
     }, []);
+
+    useEffect(() => {
+        GetBlogs();
+    }, [page]);
 
     const formatDate = (dateString) => {
         if (!dateString) return "";
@@ -70,7 +78,10 @@ const Blogs = () => {
                         <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
                     )}
                 </div>
+                <Pagination pageNum={page} setPageNum={setPage} lastPage={totalPages}/>
+
             </div>
+
         </div>
     );
 };
