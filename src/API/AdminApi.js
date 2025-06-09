@@ -25,9 +25,9 @@ export const LoginRequest = async (LoginDTO) => {
     }
 };
 
-export const GetUsers = async () => {
+export const GetUsers = async (page,size) => {
     try {
-        const result = await api.get("/auth/get/all");
+        const result = await api.get(`/auth/get/all?page=${page}&pageSize=${size}`);
         return result.data;
     } catch (error) {
         console.error("Kullanıcı verilerini alırken hata oluştu:", error);

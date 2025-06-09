@@ -75,10 +75,14 @@ const Blogs = () => {
                             </div>
                         ))
                     ) : (
-                        <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
+                        <span className="text-center">{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
                     )}
                 </div>
-                <Pagination pageNum={page} setPageNum={setPage} lastPage={totalPages}/>
+
+                {blogs.length > 0 && (
+                    <Pagination pageNum={page} setPageNum={setPage} lastPage={totalPages} />
+                )}
+
 
             </div>
 
