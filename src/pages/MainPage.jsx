@@ -2,6 +2,7 @@ import Navbar from "../components/navbar.jsx";
 import './css/MainPage.css'
 import {EducationsGetAll, MainGetAll, ProjectsGetAll, SkillsGetAll} from '../API/MainApi.js'
 import {useEffect, useState} from "react";
+import Pagination from "../components/Pagination.jsx";
 
 const MainPage = () => {
     const [language, setLanguage] = useState(() => {
@@ -10,6 +11,8 @@ const MainPage = () => {
     const [mainItem, setMainItem] = useState(null);
     const [skills, setSkills] = useState([]);
     const [projects, setProjects] = useState([]);
+    const [pageNum, setPageNum] = useState(1);
+    const [lastPage, setLastPage] = useState(5);
     const [educations, setEducations] = useState([]);
     useEffect(() => {
         const lang = localStorage.getItem("lang");
@@ -29,8 +32,9 @@ const MainPage = () => {
         setSkills(skillsobj)
     }
     const projectsGet = async () => {
-        const projectsObj = await ProjectsGetAll()
-        setProjects(projectsObj)
+        const projectsObj = await ProjectsGetAll(pageNum,6)
+        setProjects(projectsObj.items)
+        setLastPage(projectsObj.totalPages)
     }
     const EduGet = async () => {
         const Eduobj = await EducationsGetAll()
@@ -42,6 +46,10 @@ const MainPage = () => {
         projectsGet();
         EduGet();
     }, [])
+
+    useEffect(() => {
+        projectsGet();
+    }, [pageNum]);
 
     return (
         <div className="main-page-parent-con">
@@ -95,7 +103,7 @@ const MainPage = () => {
                         )}
                     </div>
                 </div>
-                <div className="col-12  row py-5 px-0 mx-0">
+                <div className="col-12 mb-5 row py-5 px-0 mx-0">
                     <p className="titles col-12">{language === "tr" ? "PROJELERİM 🖥️" : "PROJECTS 🖥️"}</p>
                     <div
                         className="row  col-12 column-gap-5 row-gap-3 justify-content-center justify-content-lg-start  px-0 mx-0">
@@ -121,6 +129,9 @@ const MainPage = () => {
                             <span>{language === "tr" ? "Gösterilecek proje bulunmadı" : "No project available"}</span>
                         )}
                     </div>
+                    {Array.isArray(projects) && projects.length > 0 && (
+                        <Pagination pageNum={pageNum} setPageNum={setPageNum} lastPage={lastPage} />
+                    )}
                 </div>
             </div>
         </div>

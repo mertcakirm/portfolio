@@ -69,7 +69,6 @@
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
-    z-index: 10;
 }
 
 .nav-card:hover .tooltip {
@@ -83,7 +82,6 @@
     flex-direction: row;
     justify-content: center;
     column-gap: 10px;
-    z-index: 100;
     margin-top: 20px;
 }
 
@@ -93,7 +91,6 @@
     padding: 5px 10px;
     background: #5d5c5c;
     transition: .4s;
-    z-index: 101!important;
     display: block;
 }
 
@@ -103,7 +100,6 @@
     background: #5d5c5c;
     padding: 0 10px;
     transition: .4s;
-    z-index: 101!important;
 
 }
 
