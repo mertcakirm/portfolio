@@ -3,6 +3,7 @@ import {useParams} from 'react-router-dom';
 import Navbar from "../components/navbar.jsx";
 import {GetBlogFromId} from "../API/MainApi.js";
 import './css/Blog_detail.css';
+import "aos/dist/aos.css";
 
 const Blog_detail = () => {
     const {id} = useParams();
@@ -45,7 +46,7 @@ const Blog_detail = () => {
                 <div className="row justify-content-center">
                     {blogState ? (
                         <div className="row justify-content-center col-12 row-gap-5">
-                            <div className="row col-12 justify-content-between">
+                            <div data-aos="fade-up" className="row col-12 justify-content-between">
                                 <div className="createdBy col-lg-3 col-12">{formatDate(blogState.createdDate)}</div>
                                 <div className="text-center col-lg-6 col-12 titles w-auto">
                                     {language === "tr" ? blogState.bloG_Name_tr : blogState.blogName}
@@ -56,7 +57,7 @@ const Blog_detail = () => {
                             </div>
 
                             {blogState.blog_Contents.map((content, index) => (
-                                <div key={index} className="col-12 justify-content-center text-center row-gap-3 row">
+                                <div data-aos="fade-up" key={index} className="col-12 justify-content-center text-center row-gap-3 row">
                                     <img
                                         className="col-12 blog_images img-fluid"
                                         alt={`Blog Content ${index}`}
@@ -68,7 +69,7 @@ const Blog_detail = () => {
                             ))}
                         </div>
                     ) : (
-                        <span>{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
+                        <span data-aos="fade-up">{language === "tr" ? "Gösterilecek blog bulunamadı" : "No blog available"}</span>
                     )}
                 </div>
             </div>

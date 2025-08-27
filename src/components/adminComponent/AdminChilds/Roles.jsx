@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {DeleteRolereq, GetRoles} from "../../../API/AdminApi.js";
 import AddRolePopup from "../newRolePopup.jsx";
+import "aos/dist/aos.css";
 
 const Roles = () => {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -35,7 +36,7 @@ const Roles = () => {
     }, [refresh])
 
     return (
-        <div className="col-12 mt-5">
+        <div className="col-12 mt-5" data-aos="fade-up">
             <div className="row px-3 justify-content-between">
                 <h3 className="col-6">Roller</h3>
                 <button className="col-2 add-btn" onClick={handleOpenPopup}>Rol Ekle</button>

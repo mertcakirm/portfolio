@@ -11,9 +11,16 @@ import {
 import NewProjectPopup from "./newProjectPopup.jsx";
 import {EducationsGetAll, ProjectsGetAll, SkillsGetAll} from "../../API/MainApi.js";
 import {getCookie} from "../../API/Cookie.js";
+import Pagination from "../Pagination.jsx";
+import "aos/dist/aos.css";
 
 const MainComp = () => {
-    const [skillNameState, setSkillNameState] = useState("");
+    const [skillState, setSkillState] = useState(
+        {
+            SkillName:"",
+            proficiency:""
+        }
+    );
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const [refresh, setRefresh] = useState(false);
     const [skills, setSkills] = useState([]);
@@ -26,8 +33,10 @@ const MainComp = () => {
         header_en: "",
         description_en: ""
     });
+    const [lastPage, setLastPage] = useState(5);
     const [imageBase64, setImageBase64] = useState("");
     const [newEducation, setNewEducation] = useState({EducationText: "", Egitim: ""});
+    const [pageNum, setPageNum] = useState(1);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -63,18 +72,10 @@ const MainComp = () => {
             console.error("Metin güncellenirken hata oluştu:", error);
         }
     };
-
-    const handleOpenPopup = () => {
-        setIsPopupOpen(true);
-    }
-
-    const handleClosePopup = () => {
-        setIsPopupOpen(false);
-        setRefresh((prevState) => !prevState);
-    }
     const projectsGet = async () => {
-        const projectsObj = await ProjectsGetAll()
-        setProjects(projectsObj)
+        const projectsObj = await ProjectsGetAll(pageNum,10)
+        setProjects(projectsObj.items)
+        setLastPage(projectsObj.totalPages)
     }
 
     const skillsGet = async () => {
@@ -88,19 +89,24 @@ const MainComp = () => {
     }
 
     const AddSkill = async () => {
-        if (!skillNameState.trim()) {
+        if (!skillState.SkillName.trim()) {
             console.log("Yetkinlik adı boş olamaz!");
             return;
         }
-        const data = {
-            SkillName: skillNameState,
-            proficiency: "100",
-        };
-        try {
-            await AddSkillReq(data);
-            setSkillNameState("");
-            setRefresh((prevState) => !prevState);
+        if (!skillState.proficiency) {
+            console.log("Yetkinlik derecesi boş olamaz!");
+            return;
+        }
 
+        if (skillState.proficiency < 0 || skillState.proficiency > 100) {
+            console.log("Yetkinlik derecesi 0 ile 100 arasında olmalıdır!");
+            return;
+        }
+
+        try {
+            await AddSkillReq(skillState);
+            setSkillState({ name: "", proficiency: "" });
+            setRefresh(!refresh);
         } catch (error) {
             console.error("Yetkinlik eklenirken hata oluştu:", error);
         }
@@ -117,19 +123,15 @@ const MainComp = () => {
 
     const DeleteProject = async (id) => {
         await DeleteProjectReq(id);
-        setRefresh((prevState) => !prevState);
+        setRefresh(!refresh);
     }
-
-
     const DeleteSkill = async (id) => {
         await DeleteSkillReq(id);
-        setRefresh((prevState) => !prevState);
-
+        setRefresh(!refresh);
     }
     const DeleteEdu = async (id) => {
         await DeleteEduReq(id);
-        setRefresh((prevState) => !prevState);
-
+        setRefresh(!refresh);
     }
 
     const AddEducation = async () => {
@@ -140,8 +142,7 @@ const MainComp = () => {
         try {
             await AddEducationReq(data);
             setNewEducation("");
-            setRefresh((prevState) => !prevState);
-
+            setRefresh(!refresh);
         } catch (error) {
             console.error("Yetkinlik eklenirken hata oluştu:", error);
         }
@@ -176,7 +177,7 @@ const MainComp = () => {
         <div className="container-fluid py-5">
             <div className="row row-gap-5">
 
-                <div className="col-6">
+                <div data-aos="fade-right" className="col-6">
                     <div className="row px-3 row-gap-3 justify-content-center">
                         <h3 className="col-12 text-center">Kişi Resmi</h3>
                         <input type="file" className="col-7" onChange={handleImageChange}/>
@@ -190,7 +191,7 @@ const MainComp = () => {
                     </div>
                 </div>
 
-                <div className="col-6">
+                <div className="col-6" data-aos="fade-left">
                     <div className="row px-3 row-gap-3 justify-content-center">
                         <h3 className="col-12 text-center">Tanıtım Metni</h3>
                         <input
@@ -230,7 +231,7 @@ const MainComp = () => {
                 </div>
 
 
-                <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
+                <div className="col-12 py-3" data-aos="fade-up" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-3 text-center">Eğitimleri Yönet</h3>
                         <input type="text" name="EducationText" value={newEducation.EducationText}
@@ -268,24 +269,49 @@ const MainComp = () => {
                 </div>
 
 
-                <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
+                <div className="col-12 py-3" data-aos="fade-up" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
-                        <h3 className="col-3 text-center">Yetkinlikleri Yönet</h3>
+                        <h3 className="col-2 text-center">Yetkinlikleri Yönet</h3>
                         <input
-                            value={skillNameState}
-                            onChange={(e) => setSkillNameState(e.target.value)}
+                            value={skillState.SkillName}
+                            onChange={(e) => setSkillState({
+                                ...skillState,
+                                SkillName: e.target.value
+                            })}
                             type="text"
-                            className="col-5 login-inp"
+                            className="col-3 login-inp"
                             placeholder="Yetkinlik Adı"
                         />
-                        <button onClick={AddSkill} className="col-2 login-btn">Yetkinlik Ekle</button>
 
-                        <div className="col-12">
+                        <input
+                            value={skillState.proficiency}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                if (value >= 0 && value <= 100) {
+                                    setSkillState({
+                                        ...skillState,
+                                        proficiency: value
+                                    });
+                                }
+                            }}
+                            type="number"
+                            min="0"
+                            max="100"
+                            className="col-2 login-inp"
+                            placeholder="Yetkinlik Derecesi(%)"
+                        />
+
+                        <button onClick={AddSkill} className="col-2 login-btn">
+                            Yetkinlik Ekle
+                        </button>
+
+                        <div className="col-12 text-center">
                             <table className="table mt-5 px-4 table-striped table-dark">
                                 <thead>
                                 <tr>
                                     <th scope="col">Yetkinlik ID</th>
                                     <th scope="col">Yetkinlik Adı</th>
+                                    <th scope="col">Yetkinlik Derecesi</th>
                                     <th scope="col">İşlem</th>
                                 </tr>
                                 </thead>
@@ -294,6 +320,7 @@ const MainComp = () => {
                                     <tr key={index}>
                                         <th scope="row">{skill.id}</th>
                                         <td>{skill.skillName}</td>
+                                        <td>{skill.proficiency}</td>
                                         <td>
                                             <button onClick={() => DeleteSkill(skill.id)} className="delete-btn">Sil
                                             </button>
@@ -306,10 +333,10 @@ const MainComp = () => {
                     </div>
                 </div>
 
-                <div className="col-12 py-3" style={{borderTop: '1px solid #fff'}}>
+                <div className="col-12 py-3" data-aos="fade-up" style={{borderTop: '1px solid #fff'}}>
                     <div className="row px-3 row-gap-3 column-gap-3 justify-content-between">
                         <h3 className="col-6">Projeleri Yönet</h3>
-                        <button className="col-3 login-btn" onClick={handleOpenPopup}>Proje Ekle</button>
+                        <button className="col-3 login-btn" onClick={()=>setIsPopupOpen(true)}>Proje Ekle</button>
 
                         <div className="col-12">
                             <table className="table mt-5 px-4 table-striped table-dark">
@@ -335,16 +362,26 @@ const MainComp = () => {
                                 </tbody>
                             </table>
                         </div>
+                        {Array.isArray(projects) && projects.length > 0 && (
+                            <Pagination pageNum={pageNum} setPageNum={setPageNum} lastPage={lastPage} />
+                        )}
                     </div>
                 </div>
-                <NewProjectPopup
-                    isOpen={isPopupOpen}
-                    onClose={handleClosePopup}
-                />
+                {isPopupOpen?
+                    <NewProjectPopup
+                        onClose={(b)=>{
+                            if(b===false) {
+                                setIsPopupOpen(b);
+                                setRefresh(!refresh);
+                            }}
+                        }
+                    />:null
+                }
+
             </div>
         </div>
     ) : (
-        <div className="w-100 text-center align-items-center justify-content-center row-gap-5"
+        <div data-aos="fade-up" className="w-100 text-center align-items-center justify-content-center row-gap-5"
              style={{height: '100vh', display: 'flex', flexDirection: 'column'}}>
             <svg className="col-12" xmlns="http://www.w3.org/2000/svg" fill="white" width="200" height="200"
                  viewBox="0 0 24 24">

@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {BlogsGetAll, DeleteBlogReq, HiddenBlogReq, ShowBlogReq} from "../../../API/AdminApi.js";
 import Pagination from "../../Pagination.jsx";
+import "aos/dist/aos.css";
 
 const Blog = () => {
     const [blogs, setBlogs] = useState([]);
@@ -38,7 +39,7 @@ const Blog = () => {
     }, [page,refresh]);
 
     return (
-        <div className="col-12 mt-5">
+        <div className="col-12 mt-5" data-aos="fade-up">
             <div className="row px-3 justify-content-between">
                 <h3 className="col-6">Bloglar</h3>
             </div>

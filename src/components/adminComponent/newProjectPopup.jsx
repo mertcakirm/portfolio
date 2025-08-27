@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {AddProjectReq} from "../../API/AdminApi.js";
 
-const NewProjectPopup = ({isOpen, onClose}) => {
+const NewProjectPopup = ({onClose}) => {
     const [projectData, setProjectData] = useState({
         title_en: "",
         title_tr: "",
@@ -28,25 +28,21 @@ const NewProjectPopup = ({isOpen, onClose}) => {
         }
     };
 
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         try {
             await AddProjectReq(projectData);
-            onClose();
+            onClose(false);
         } catch (error) {
             console.error("Proje eklenirken hata oluştu:", error);
+            onClose(false);
         }
     };
-
-
-    if (!isOpen) return null;
 
     return (
         <div className="popup-overlay">
             <div className="popup-content" style={{width: '600px'}}>
                 <h2>Proje Ekle</h2>
-                <form className="row" onSubmit={handleSubmit}>
+                <div className="row">
                     <div style={{width: '50%'}} className="form-group">
                         <label>Title:</label>
                         <input
@@ -125,12 +121,12 @@ const NewProjectPopup = ({isOpen, onClose}) => {
                         />
                     </div>
                     <div className="form-actions">
-                        <button type="button" className="add-btn" onClick={onClose}>
+                        <button type="button" className="add-btn" onClick={()=>onClose(false)}>
                             İptal
                         </button>
-                        <button type="submit" className="add-btn">Kaydet</button>
+                        <button onClick={handleSubmit} type="submit" className="add-btn">Kaydet</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );

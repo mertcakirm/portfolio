@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import './css/blogs.css';
 import {BlogsGetActive} from "../API/MainApi.js";
 import Pagination from "../components/Pagination.jsx";
+import "aos/dist/aos.css";
 
 const Blogs = () => {
     const [language, setLanguage] = useState(() => {
@@ -50,7 +51,7 @@ const Blogs = () => {
                     <p className="titles text-center col-12">{language === 'tr' ? 'BLOGLAR' : 'BLOGS'}</p>
                     {blogs.length > 0 ? (
                         blogs.map((blog, index) => (
-                            <div key={index} className="col-lg-3 p-3 animation-item-right col-12">
+                            <div key={index} data-aos="fade-up" className="col-lg-3 p-3 col-12">
                                 <a href={blog.blogid ? `/blog-detail/${blog.blogid}` : "#"}
                                    style={{textDecoration: 'none'}}
                                    className="blog-card">
@@ -80,7 +81,9 @@ const Blogs = () => {
                 </div>
 
                 {blogs.length > 0 && (
-                    <Pagination pageNum={page} setPageNum={setPage} lastPage={totalPages} />
+                    <div  data-aos="fade-up">
+                        <Pagination pageNum={page} setPageNum={setPage} lastPage={totalPages} />
+                    </div>
                 )}
 
 

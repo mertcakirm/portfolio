@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {AddBlogReq} from "../../API/AdminApi.js";
 import {getCookie} from "../../API/Cookie.js";
+import "aos/dist/aos.css";
 
 const generateRandomBlogId = () => {
     return Math.floor(100000000 + Math.random() * 900000000).toString();
@@ -143,7 +144,7 @@ const BlogComp = () => {
 
     return (
         <div className="container-fluid py-5">
-            <div className="row">
+            <div className="row" data-aos="fade-up">
                 <div style={{height: '100vh'}}
                      className="col-12 row add-blog-btn justify-content-center align-items-center">
                     <button className="col-12 row-gap-3 row bg-transparent border-0" onClick={showBlogInp}>
@@ -154,7 +155,7 @@ const BlogComp = () => {
                         <h2 className="col-12 text-center">Blog Ekle</h2>
                     </button>
                 </div>
-                <div className="col-12 add-blog-con row justify-content-center" style={{display: "none"}}>
+                <div data-aos="fade-up" className="col-12 add-blog-con row justify-content-center" style={{display: "none"}}>
                     <div style={{height: 'fit-content'}} className="row col-4 row-gap-3 justify-content-center">
                         <h5 className="col-12 text-center">Genel Blog Yönetimi</h5>
                         <input type="text" className="col-12 login-inp" placeholder="Blog Title" value={blogs.BlogName}
@@ -180,7 +181,7 @@ const BlogComp = () => {
                     <div className="col-8" style={{height: '100vh', overflowY: 'auto'}}>
                         <button className="btn btn-light login-btn m-3" onClick={addContent}>+ İçerik Ekle</button>
                         {contents.map((content) => (
-                            <div key={content.id} className="content-box">
+                            <div data-aos="fade-up" key={content.id} className="content-box">
                                 <input type="text" className="login-inp w-100 mb-2" placeholder="Title"
                                        value={content.title_en}
                                        onChange={(e) => updateContent(content.id, "title_en", e.target.value)}/>

@@ -38,28 +38,7 @@
     box-shadow: rgb(255, 255, 255) 0px 0px 20px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    animation: fadeIn .9s ease-in-out;
-
 }
-
-
-
-.right-animation-item{
-    animation: slideRight .6s linear;
-}
-
-.left-animation-item{
-    animation: slideLeft .6s linear;
-}
-
-.animation-item-right{
-    animation: slide-in .9s alternate;
-}
-
-.animation-item-bottom{
-    animation: slide-bottom .9s alternate;
-}
-
 
 .edu-card{
     color: #fff;
@@ -183,63 +162,3 @@
     }
 }
 
-
-
-
-@keyframes slideLeft {
-    0% {
-        transform: translateX(-100%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0%);
-        opacity: 1;
-    }
-}
-
-
-@keyframes slideRight {
-    0% {
-        transform: translateX(100%) rotate(180deg);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0%)  rotate(360deg) ;
-        opacity: 1;
-    }
-}
-
-
-@keyframes slide-in {
-    from {
-        translate: 150vw 0;
-        scale: 200% 1;
-    }
-
-    to {
-        translate: 0 0;
-        scale: 100% 1;
-    }
-}
-
-
-@keyframes slide-bottom {
-    from {
-        translate: 0 150vw;
-        scale: 100% 1;
-    }
-
-    to {
-        translate: 0 0;
-        scale: 200% 1;
-    }
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-}

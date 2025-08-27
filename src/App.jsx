@@ -7,10 +7,16 @@ import Blog_detail from "./pages/Blog_detail.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import AdminPanel from "./pages/AdminPanel.jsx";
 import {getCookie} from "./API/Cookie.js";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import {useEffect} from "react";
 
 function App() {
     const token = getCookie("token");
 
+    useEffect(() => {
+        AOS.init({ duration: 1000 });
+    }, []);
     return (
         <div style={{background: '#000', height: '100%'}}>
             <BrowserRouter>

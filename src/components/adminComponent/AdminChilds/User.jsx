@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import AddUserPopup from "../newUserPopup.jsx";
 import {DeleteUserreq, GetUsers} from "../../../API/AdminApi.js";
 import Pagination from "../../Pagination.jsx";
+import "aos/dist/aos.css";
 
 const User = () => {
     const [users, setUsers] = useState([]);
@@ -40,7 +41,7 @@ const User = () => {
     }, [page,refresh])
 
     return (
-        <div className="col-12">
+        <div className="col-12" data-aos="fade-up">
             <div className="row px-3 justify-content-between">
                 <h3 className="col-6">Kullanıcılar</h3>
                 <button className="col-2 add-btn" onClick={handleOpenPopup}>Kullanıcı Ekle</button>
